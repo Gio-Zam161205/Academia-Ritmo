@@ -1,0 +1,494 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: #e0e7ff;
+  --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  --success: #10b981;
+  --success-bg: #d1fae5;
+  --warning: #f59e0b;
+  --warning-bg: #fef3c7;
+  --danger: #ef4444;
+  --danger-bg: #fee2e2;
+  --slate-900: #0f172a;
+  --slate-800: #1e293b;
+  --slate-600: #475569;
+  --slate-400: #94a3b8;
+  --slate-200: #cbd5e1;
+  --slate-100: #f8fafc;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f1f5f9;
+  color: var(--slate-900);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   BARRA INSTITUCIONAL SUPERIOR (Docente y Recepción)
+   ========================================================================== */
+.main-navbar {
+  background: var(--primary-gradient);
+  color: var(--white);
+  padding: 20px 36px;
+  box-shadow: 0 4px 18px rgba(79, 70, 229, 0.25);
+  width: 100%;
+}
+
+.navbar-container {
+  width: 100%;
+  max-width: 1350px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.user-badge {
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.22);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   CU-01: DOCENTE (RESPONSIVO LAPTOP / TELÉFONO)
+   ========================================================================== */
+.cu01-main-container {
+  width: 100%;
+  max-width: 780px; /* Ancho optimizado en PC */
+  margin: 32px auto;
+  padding: 0 20px;
+  flex: 1;
+}
+
+.cu01-panel {
+  background: var(--white);
+  border-radius: 22px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+  border: 1.5px solid var(--slate-200);
+  padding: 32px;
+}
+
+.cu01-header-filter {
+  margin-bottom: 24px;
+}
+
+.field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--slate-600);
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.custom-select {
+  width: 100%;
+  border: 2px solid var(--slate-200);
+  background: var(--white);
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--slate-900);
+  outline: none;
+  cursor: pointer;
+}
+
+.list-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px solid var(--slate-200);
+}
+
+.meta-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--slate-700);
+  text-transform: uppercase;
+}
+
+.meta-counter {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+
+.student-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.student-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid var(--slate-200);
+  transition: all 0.2s ease;
+}
+
+.student-card.marked {
+  border-color: var(--primary);
+  background: #f5f3ff;
+}
+
+.student-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--slate-900);
+  margin-bottom: 6px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.pill-solvente { background: var(--success-bg); color: #065f46; }
+.pill-solvente::before { content: "●"; font-size: 9px; }
+
+.pill-pendiente { background: var(--warning-bg); color: #92400e; }
+.pill-pendiente::before { content: "●"; font-size: 9px; }
+
+.cu01-switch {
+  background: var(--slate-200);
+  color: var(--slate-700);
+  border: none;
+  border-radius: 24px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.cu01-switch.active {
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+}
+
+.alert-banner {
+  background: #fffbeb;
+  border-left: 5px solid var(--warning);
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 14px;
+  color: #92400e;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.btn-primary-action {
+  width: 100%;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 5px 18px rgba(79, 70, 229, 0.3);
+  transition: background 0.2s;
+}
+.btn-primary-action:hover { background: var(--primary-hover); }
+
+/* ==========================================================================
+   CU-02: RECEPCIÓN (PANEL CORPORATIVO AMPLIO Y LEGIBLE)
+   ========================================================================== */
+.cu02-main-container {
+  width: 100%;
+  max-width: 1350px;
+  margin: 36px auto;
+  padding: 0 32px;
+  flex: 1;
+}
+
+.panel-header-title {
+  margin-bottom: 28px;
+}
+
+.panel-header-title h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--slate-900);
+  margin-bottom: 6px;
+}
+
+.panel-header-title p {
+  font-size: 16px;
+  color: var(--slate-600);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.desk-card {
+  background: var(--white);
+  border-radius: 22px;
+  border: 1.5px solid var(--slate-200);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.desk-card h3 {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 22px;
+  color: var(--slate-900);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.desk-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.desk-table th {
+  text-align: left;
+  padding: 16px 18px;
+  background: #f8fafc;
+  color: var(--slate-600);
+  font-size: 13px;
+  font-weight: 700;
+  border-bottom: 2px solid var(--slate-200);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.desk-table td {
+  padding: 20px 18px;
+  border-bottom: 1.5px solid var(--slate-200);
+  font-size: 16px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  background: var(--slate-200);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+.progress-bar-indigo { height: 100%; background: var(--primary); width: 90%; }
+.progress-bar-red { height: 100%; background: var(--danger); width: 100%; }
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--slate-800);
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  border: 2px solid var(--slate-200);
+  border-radius: 12px;
+  padding: 15px 18px;
+  font-size: 15px;
+  outline: none;
+  background: var(--white);
+  color: var(--slate-900);
+  transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus {
+  border-color: var(--primary);
+}
+
+.alert-danger {
+  background: var(--danger-bg);
+  border: 1.5px solid #fca5a5;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 22px;
+  display: none;
+}
+.alert-danger.visible { display: block; }
+.alert-danger strong { color: #991b1b; display: block; margin-bottom: 4px; font-size: 15px; }
+.alert-danger p { font-size: 13px; color: #7f1d1d; line-height: 1.45; }
+
+.btn-desk-action {
+  width: 100%;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: auto;
+  transition: background 0.2s;
+}
+.btn-desk-action:hover { background: var(--primary-hover); }
+
+.btn-desk-action.disabled {
+  background: var(--slate-200);
+  color: var(--slate-400);
+  cursor: not-allowed;
+}
+
+/* Modales y Notificaciones */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(5px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 1000;
+}
+.modal-overlay.active { display: flex; }
+
+.modal-card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 32px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+}
+
+.modal-btn {
+  width: 100%;
+  background: var(--slate-900);
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 18px;
+}
+
+.toast-msg {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: var(--slate-900);
+  color: var(--white);
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  display: none;
+  border-left: 5px solid var(--success);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+}
+.toast-msg.show { display: block; }
+
+/* ==========================================================================
+   REGLAS RESPONSIVAS ESTRICTAS PARA MÓVIL (<= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .main-navbar {
+    padding: 14px 16px;
+  }
+  .brand-title {
+    font-size: 18px;
+  }
+  .user-badge {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+  .cu01-main-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .cu01-panel {
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    padding: 18px 16px;
+    min-height: calc(100vh - 65px);
+    display: flex;
+    flex-direction: column;
+  }
+  .student-card {
+    padding: 14px 16px;
+  }
+  .student-name {
+    font-size: 15px;
+  }
+  .cu01-switch {
+    padding: 10px 18px;
+    font-size: 13px;
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .cu02-main-container {
+    padding: 16px;
+    margin: 10px auto;
+  }
+  .desk-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+  .btn-primary-action {
+    margin-top: auto;
+  }
+}
