@@ -1,5 +1,5 @@
 /**
- * register.js - Lógica de Registro de Usuarios
+ * js/register.js - Lógica de Registro de Usuarios
  * Academia de Baile "Ritmo"
  */
 
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 2. Funciones auxiliares para mostrar/ocultar alertas
+  // 2. Funciones de alerta
   function showAlert(message, type = 'error') {
     if (!alertBox) return;
     alertBox.textContent = message;
@@ -38,24 +38,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 3. Envío del formulario al servidor backend en PHP
+  // 3. Envío del formulario a php/register.php
   if (registerForm) {
     registerForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       hideAlert();
 
-      const fullname = document.getElementById('fullname').value.trim();
-      const username = document.getElementById('username').value.trim();
-      const role = document.getElementById('role').value;
-      const password = passwordInput.value;
+      const fullnameInput = document.getElementById('fullname');
+      const usernameInput = document.getElementById('username');
+      const roleSelect = document.getElementById('role');
+
+      const fullname = fullnameInput ? fullnameInput.value.trim() : '';
+      const username = usernameInput ? usernameInput.value.trim() : '';
+      const role = roleSelect ? roleSelect.value : '';
+      const password = passwordInput ? passwordInput.value : '';
       const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : '';
 
-      // Validaciones del Frontend
+      // Validaciones en el cliente
       if (!fullname || !username || !role || !password || !confirmPassword) {
         showAlert('Por favor, completa todos los campos del formulario.', 'error');
         return;
       }
 
+     // Validación en js/register.js
       if (role !== 'INSTRUCTOR' && role !== 'RECEPCIONISTA' && role !== 'ADMIN') {
         showAlert('Por favor, selecciona un rol válido.', 'error');
         return;
@@ -75,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.disabled = true;
       if (spinner) spinner.style.display = 'inline-block';
 
-      // Empaquetado de datos para el backend
+      // Empaquetado de datos
       const formData = new FormData();
       formData.append('fullname', fullname);
       formData.append('username', username);
@@ -88,12 +93,16 @@ document.addEventListener('DOMContentLoaded', () => {
           body: formData
         });
 
+        if (!response.ok) {
+          throw new Error(`HTTP Error Status: ${response.status}`);
+        }
+
         const result = await response.json();
 
         if (result.status === 'success') {
           showAlert(result.message, 'success');
           setTimeout(() => {
-            window.location.href = 'log.html';
+            window.location.href = 'log.html'; // Redirige al login tras registro exitoso
           }, 1500);
         } else {
           showAlert(result.message || 'Error al registrar el usuario.', 'error');
@@ -101,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (spinner) spinner.style.display = 'none';
         }
       } catch (error) {
-        showAlert('Error de conexión con el servidor backend.', 'error');
+        showAlert('Error de conexión con el servidor backend (php/register.php).', 'error');
         submitBtn.disabled = false;
         if (spinner) spinner.style.display = 'none';
       }
