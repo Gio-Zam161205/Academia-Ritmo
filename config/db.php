@@ -3,7 +3,7 @@
 $host = 'localhost';
 $db   = 'academia_ritmo';
 $user = 'root';
-$pass = '1234'; 
+$pass = '1234'; // Contraseña por defecto de XAMPP / Laragon
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -16,9 +16,9 @@ $options = [
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (\PDOException $e) {
-    header('Content-Type: application/json');
+    header('Content-Type: application/json; charset=utf-8');
     http_response_code(500);
-    echo json_encode(['status' => 'error', 'message' => 'Error de conexión: ' . $e->getMessage()]);
+    echo json_encode(['status' => 'error', 'message' => 'Error de conexión a la Base de Datos: ' . $e->getMessage()]);
     exit();
 }
 ?>
