@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academia Ritmo - Registro de Usuario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/log.css">
+</head>
+<body>
+
+  <div class="login-wrapper">
+    <!-- Encabezado / Branding Institucional -->
+    <div class="brand-header">
+      <div class="brand-icon">💃</div>
+      <h1 class="brand-title">Academia Ritmo</h1>
+      <p class="brand-subtitle">Sistema de Gestión de Aulas y Recepción</p>
+    </div>
+
+    <!-- Tarjeta Formulario de Registro -->
+    <div class="login-card">
+      <h2 class="card-title">Crear una Cuenta</h2>
+      <p class="card-instruction">Completa tus datos institucionales y selecciona tu rol para registrarte.</p>
+
+      <!-- Alerta de Notificación -->
+      <div id="alertBox" class="alert-box" style="display: none;"></div>
+
+      <form id="registerForm" novalidate>
+        <!-- Campo Nombre Completo -->
+        <div class="form-group">
+          <label for="fullname">Nombre Completo</label>
+          <div class="input-container">
+            <span class="input-icon">👤</span>
+            <input 
+              type="text" 
+              id="fullname" 
+              name="fullname" 
+              placeholder="ej. Carlos Gómez" 
+              required
+            >
+          </div>
+        </div>
+
+        <!-- Campo Correo / Usuario -->
+        <div class="form-group">
+          <label for="username">Usuario o Correo Institucional</label>
+          <div class="input-container">
+            <span class="input-icon">✉️</span>
+            <input 
+              type="email" 
+              id="username" 
+              name="username" 
+              placeholder="ej. docente@ritmo.edu" 
+              required
+              autocomplete="email"
+            >
+          </div>
+        </div>
+
+        <!-- Selección de Rol del Usuario -->
+        <div class="form-group">
+          <label for="role">Rol en la Academia</label>
+          <div class="input-container">
+            <span class="input-icon">🎭</span>
+            <select id="role" name="role" required class="select-role">
+              <option value="" disabled selected>-- Selecciona tu rol --</option>
+              <option value="INSTRUCTOR">Instructor de Baile</option>
+              <option value="RECEPCIONISTA">Recepcionista</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Campo Contraseña -->
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <div class="input-container">
+            <span class="input-icon">🔒</span>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              placeholder="Mínimo 8 caracteres" 
+              required
+              autocomplete="new-password"
+            >
+            <button type="button" id="togglePasswordBtn" class="toggle-password" title="Mostrar contraseña">👁️</button>
+          </div>
+        </div>
+
+        <!-- Campo Confirmar Contraseña -->
+        <div class="form-group">
+          <label for="confirmPassword">Confirmar Contraseña</label>
+          <div class="input-container">
+            <span class="input-icon">🔒</span>
+            <input 
+              type="password" 
+              id="confirmPassword" 
+              name="confirmPassword" 
+              placeholder="Repite tu contraseña" 
+              required
+              autocomplete="new-password"
+            >
+          </div>
+        </div>
+
+        <!-- Botón Submit -->
+        <button type="submit" id="submitBtn" class="btn-submit">
+          <span>Registrarme en el Sistema</span>
+          <span class="spinner" style="display: none;">⏳</span>
+        </button>
+      </form>
+
+      <!-- Enlace a Iniciar Sesión -->
+      <div class="demo-section">
+        <span class="demo-title">¿Ya tienes una cuenta?</span>
+        <div class="demo-buttons">
+          <a href="login.html" class="btn-demo" style="text-decoration: none; text-align: center; display: block; width: 100%;">
+            Iniciar Sesión
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pie de página -->
+    <div class="login-footer">
+      <p>&copy; 2026 Academia de Baile "Ritmo" &bull; Todos los derechos reservados.</p>
+    </div>
+  </div>
+
+  <script src="JS/register.js"></script>
+</body>
+</html>
