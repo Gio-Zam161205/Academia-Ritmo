@@ -1,5 +1,5 @@
 /**
- * log.js - Manejo de Autenticación e Inicio de Sesión
+ * js/log.js - Manejo de Autenticación e Inicio de Sesión
  * Academia de Baile "Ritmo"
  */
 
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const demoButtons = document.querySelectorAll('.btn-demo');
   const spinner = submitBtn ? submitBtn.querySelector('.spinner') : null;
 
-  // 1. Mostrar / Ocultar Contraseña
+  // 1. Mostrar / Ocultar Contraseña (ojo / cerrado)
   if (togglePasswordBtn && passwordInput) {
     togglePasswordBtn.addEventListener('click', () => {
       const isPassword = passwordInput.type === 'password';
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 2. Funciones auxiliares para mostrar / ocultar alertas
+  // 2. Mostrar / Ocultar caja de alertas
   function showAlert(message, type = 'error') {
     if (!alertBox) return;
     alertBox.textContent = message;
@@ -45,14 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Botón rápido o de redirección
+  // 4. Botón rápido o enlace de redirección al registro
   demoButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      window.location.href = 'register.html';
+      window.location.href = 'registrer.html'; // Redirige a la pantalla de registro
     });
   });
 
-  // 5. Envío de Credenciales al Backend (PHP / MySQL)
+  // 5. Envío de Credenciales al Backend en PHP (php/login.php)
   if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -75,17 +75,23 @@ document.addEventListener('DOMContentLoaded', () => {
       formData.append('password', password);
 
       try {
+        // Petición a la ruta php/login.php desde la raíz
         const response = await fetch('php/login.php', {
           method: 'POST',
           body: formData
         });
+
+        if (!response.ok) {
+          throw new Error(`HTTP Error Status: ${response.status}`);
+        }
 
         const result = await response.json();
 
         if (result.status === 'success') {
           showAlert(result.message, 'success');
           
-          // Redirección dinámica basada en la respuesta del rol enviada por php/login.php
+          // Redirección dinámica según el ROL retornado por php/login.php:
+          // ADMIN -> admin.html | INSTRUCTOR -> instructor.html | RECEPCIONISTA -> index.html
           setTimeout(() => {
             window.location.href = result.redirect;
           }, 1000);
@@ -95,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (spinner) spinner.style.display = 'none';
         }
       } catch (error) {
-        showAlert('Error al conectar con el servidor backend.', 'error');
+        showAlert('Error al conectar con el servidor backend (php/login.php).', 'error');
         submitBtn.disabled = false;
         if (spinner) spinner.style.display = 'none';
       }
