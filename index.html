@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academia Ritmo - Recepción</title>
+  <link rel="stylesheet" href="CSS/styles.css">
+</head>
+<body>
+
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <div class="brand-title">💃 Academia Ritmo · Recepción</div>
+      <div class="user-badge">Laura Sánchez (Administración)</div>
+    </div>
+  </nav>
+
+  <main class="cu02-main-container">
+    <div class="panel-header-title">
+      <h1>Control de Aforos e Inscripciones</h1>
+      <p>Monitoreo de ocupación en salas en tiempo real y prevención de sobrecupo.</p>
+    </div>
+
+    <div class="dashboard-grid">
+      <!-- Tabla de Aforos -->
+      <section class="desk-card">
+        <h3>📊 Disponibilidad de Aulas</h3>
+        <table class="desk-table">
+          <thead>
+            <tr>
+              <th>Clase / Taller</th>
+              <th>Capacidad</th>
+              <th>Ocupación</th>
+              <th>Libres</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong style="color:var(--slate-900); font-size:16px;">Salsa Intermedio</strong><br>
+                <small style="color: var(--slate-400); font-size:13px;">Sala A · 18:00 hrs</small>
+              </td>
+              <td>20</td>
+              <td>
+                18 / 20
+                <div class="progress-track"><div class="progress-bar-indigo"></div></div>
+              </td>
+              <td><strong style="color: var(--primary); font-size: 20px;">2</strong></td>
+              <td><span class="pill pill-solvente">Disponible</span></td>
+            </tr>
+            <tr>
+              <td>
+                <strong style="color:var(--slate-900); font-size:16px;">Bachata Inicial</strong><br>
+                <small style="color: var(--slate-400); font-size:13px;">Sala B · 19:30 hrs</small>
+              </td>
+              <td>15</td>
+              <td>
+                15 / 15 (100%)
+                <div class="progress-track"><div class="progress-bar-red"></div></div>
+              </td>
+              <td><strong style="color: var(--danger); font-size: 20px;">0</strong></td>
+              <td><span class="pill" style="background: var(--danger-bg); color: var(--danger);">Lleno</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Formulario de Inscripción -->
+      <section class="desk-card">
+        <h3>📝 Registrar Nueva Inscripción</h3>
+        <form onsubmit="return false;">
+          <div class="form-group">
+            <label>Alumno Seleccionado</label>
+            <input type="text" value="Fernando Torres Morales" readonly style="background: #f1f5f9; color: var(--slate-800); font-weight: 700;">
+          </div>
+
+          <div class="form-group">
+            <label>Taller a Inscribir</label>
+            <select id="cu02-taller-select">
+              <option value="salsa" data-cupo="2">Salsa Intermedio (2 cupos disponibles)</option>
+              <option value="bachata" data-cupo="0" selected>Bachata Inicial (0 cupos - AGOTADO)</option>
+            </select>
+          </div>
+
+          <div class="alert-danger visible" id="cu02-alert-sobrecupo">
+            <strong>⚠️ Bloqueo de Sobrecupo Activo</strong>
+            <p>El taller ha cubierto su capacidad máxima (15/15). Se bloquea la inscripción para resguardar el aforo del salón.</p>
+          </div>
+
+          <button type="button" class="btn-desk-action disabled" id="cu02-btn-inscribir" disabled>
+            Inscripción Inhabilitada (Sobrecupo)
+          </button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <div class="toast-msg" id="cu02-toast">
+    ✓ Inscripción registrada y guardada exitosamente en la base de datos.
+  </div>
+
+  <script src="JS/main.js"></script>
+</body>
+</html>
