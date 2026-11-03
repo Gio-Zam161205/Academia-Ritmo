@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academia Ritmo - Panel de Administrador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin-styles.css">
+</head>
+<body>
+
+  <div class="admin-layout">
+    <!-- Barra Superior -->
+    <header class="topbar">
+      <div class="topbar-brand">
+        <span class="brand-icon">💃</span>
+        <div>
+          <h1 class="brand-title">Academia Ritmo</h1>
+          <span class="brand-badge">Panel Administrativo</span>
+        </div>
+      </div>
+      <div class="user-profile">
+        <span class="user-avatar">⚙️</span>
+        <div class="user-info">
+          <span class="user-name">Admin General</span>
+          <a href="index.html" class="logout-link">Cerrar Sesión</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="content-wrapper">
+      <div class="page-header">
+        <h2>Resumen General</h2>
+        <p>Monitoreo de métricas clave e historial de accesos al sistema.</p>
+      </div>
+
+      <!-- SECCIÓN 1: Los 2 Bloques Principales -->
+      <section class="kpi-grid">
+        <!-- Bloque 1: Alumnos Registrados -->
+        <div class="kpi-card">
+          <div class="kpi-icon bg-indigo">👥</div>
+          <div class="kpi-content">
+            <span class="kpi-label">Alumnos Registrados</span>
+            <div class="kpi-value-wrap">
+              <span class="kpi-value" id="kpiAlumnos">148</span>
+              <span class="kpi-trend positive">+12 este mes</span>
+            </div>
+            <span class="kpi-subtext">Alumnos con matrícula activa en talleres</span>
+          </div>
+        </div>
+
+        <!-- Bloque 2: Monto Total -->
+        <div class="kpi-card">
+          <div class="kpi-icon bg-emerald">💰</div>
+          <div class="kpi-content">
+            <span class="kpi-label">Monto Total Recaudado</span>
+            <div class="kpi-value-wrap">
+              <span class="kpi-value" id="kpiMonto">$74,000.00</span>
+              <span class="kpi-trend positive">Solventes</span>
+            </div>
+            <span class="kpi-subtext">Ingresos por mensualidades registradas</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: Tabla de Logs Recientes de Acceso -->
+      <section class="table-section">
+        <div class="table-card-header">
+          <div>
+            <h3 class="table-title">Logs Recientes de Acceso</h3>
+            <p class="table-subtitle">Registro cronológico de ingresos de usuarios al sistema</p>
+          </div>
+          <button type="button" class="btn-refresh" id="btnRefreshLogs">🔄 Actualizar</button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="logs-table">
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Rol</th>
+                <th>Fecha y Hora</th>
+                <th>IP / Dispositivo</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="logsTableBody">
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <strong>prof.carlos</strong>
+                    <span>carlos.mendoza@ritmo.edu</span>
+                  </div>
+                </td>
+                <td><span class="role-badge docente">Docente</span></td>
+                <td>23/10/2026 - 18:02 hrs</td>
+                <td>192.168.1.45 (Móvil)</td>
+                <td><span class="status-pill success">Exitoso</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <strong>recepcion</strong>
+                    <span>laura.sanchez@ritmo.edu</span>
+                  </div>
+                </td>
+                <td><span class="role-badge recepcion">Recepción</span></td>
+                <td>23/10/2026 - 17:45 hrs</td>
+                <td>192.168.1.10 (Escritorio)</td>
+                <td><span class="status-pill success">Exitoso</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <strong>prof.ana</strong>
+                    <span>ana.torres@ritmo.edu</span>
+                  </div>
+                </td>
+                <td><span class="role-badge docente">Docente</span></td>
+                <td>23/10/2026 - 16:30 hrs</td>
+                <td>192.168.1.88 (Móvil)</td>
+                <td><span class="status-pill success">Exitoso</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <strong>admin.general</strong>
+                    <span>admin@ritmo.edu</span>
+                  </div>
+                </td>
+                <td><span class="role-badge admin">Administrador</span></td>
+                <td>23/10/2026 - 15:10 hrs</td>
+                <td>192.168.1.02 (Escritorio)</td>
+                <td><span class="status-pill success">Exitoso</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <strong>usuario.desconocido</strong>
+                    <span>desconocido@gmail.com</span>
+                  </div>
+                </td>
+                <td><span class="role-badge inválido">Desconocido</span></td>
+                <td>23/10/2026 - 14:02 hrs</td>
+                <td>201.140.88.12 (Web)</td>
+                <td><span class="status-pill error">Fallido</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('btnRefreshLogs').addEventListener('click', () => {
+      const btn = document.getElementById('btnRefreshLogs');
+      btn.textContent = '⏳ Cargando...';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = '🔄 Actualizar';
+        btn.disabled = false;
+      }, 600);
+    });
+  </script>
+</body>
+</html>
