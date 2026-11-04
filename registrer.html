@@ -7,28 +7,32 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/log.css">
+  <!-- CSS nailasin para ti Registro -->
+  <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
 
+  <!-- Background Canvas (Pareho ti Fondo Neon ti Login) -->
+  <canvas id="bgCanvas"></canvas>
+
   <div class="login-wrapper">
-    <!-- Encabezado / Branding Institucional -->
+    <!-- Header Branding -->
     <div class="brand-header">
       <div class="brand-icon">💃</div>
       <h1 class="brand-title">Academia Ritmo</h1>
       <p class="brand-subtitle">Sistema de Gestión de Aulas y Recepción</p>
     </div>
 
-    <!-- Tarjeta Formulario de Registro -->
+    <!-- Tarjeta de Registro (Glassmorphism) -->
     <div class="login-card">
       <h2 class="card-title">Crear una Cuenta</h2>
       <p class="card-instruction">Completa tus datos institucionales y selecciona tu rol para registrarte.</p>
 
-      <!-- Alerta de Notificación -->
       <div id="alertBox" class="alert-box" style="display: none;"></div>
 
       <form id="registerForm" novalidate>
-        <!-- Campo Nombre Completo -->
+        
+        <!-- Nombre Completo -->
         <div class="form-group">
           <label for="fullname">Nombre Completo</label>
           <div class="input-container">
@@ -43,7 +47,7 @@
           </div>
         </div>
 
-        <!-- Campo Correo / Usuario -->
+        <!-- Correo / Usuario -->
         <div class="form-group">
           <label for="username">Usuario o Correo Institucional</label>
           <div class="input-container">
@@ -59,21 +63,21 @@
           </div>
         </div>
 
-        <!-- Selección de Rol del Usuario -->
+        <!-- Selección de Rol -->
         <div class="form-group">
           <label for="role">Rol en la Academia</label>
           <div class="input-container">
             <span class="input-icon">🎭</span>
             <select id="role" name="role" required class="select-role">
               <option value="" disabled selected>-- Selecciona tu rol --</option>
-              <option value="ADMIN">Administrador General</option> <!-- Opción agregada temporalmente -->
+              <option value="ADMIN">Administrador General</option>
               <option value="INSTRUCTOR">Instructor de Baile</option>
               <option value="RECEPCIONISTA">Recepcionista</option>
             </select>
           </div>
         </div>
 
-        <!-- Campo Contraseña -->
+        <!-- Contraseña -->
         <div class="form-group">
           <label for="password">Contraseña</label>
           <div class="input-container">
@@ -90,7 +94,7 @@
           </div>
         </div>
 
-        <!-- Campo Confirmar Contraseña -->
+        <!-- Confirmar Contraseña -->
         <div class="form-group">
           <label for="confirmPassword">Confirmar Contraseña</label>
           <div class="input-container">
@@ -113,18 +117,17 @@
         </button>
       </form>
 
-      <!-- Enlace a Iniciar Sesión -->
+      <!-- Enlace a Login -->
       <div class="demo-section">
         <span class="demo-title">¿Ya tienes una cuenta?</span>
         <div class="demo-buttons">
-          <a href="log.html" class="btn-demo" style="text-decoration: none; text-align: center; display: block; width: 100%;">
+          <a href="log.html" class="btn-demo style-link">
             Iniciar Sesión
           </a>
         </div>
       </div>
     </div>
 
-    <!-- Pie de página -->
     <div class="login-footer">
       <p>&copy; 2026 Academia de Baile "Ritmo" &bull; Todos los derechos reservados.</p>
     </div>
