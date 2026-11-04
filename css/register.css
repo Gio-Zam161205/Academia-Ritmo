@@ -1,0 +1,243 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Canvas ti Background Animation */
+#bgCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background-color: #0c0a18;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.login-wrapper {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Branding Header */
+.brand-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.brand-icon {
+  font-size: 38px;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px auto;
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.4);
+}
+
+.brand-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.brand-subtitle {
+  font-size: 13px;
+  color: #cbd5e1;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* Tarjeta traslúcida (Glassmorphism Dark) */
+.login-card {
+  background-color: rgba(12, 10, 24, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  width: 100%;
+  border-radius: 20px;
+  padding: 30px 26px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.card-instruction {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-top: 4px;
+  margin-bottom: 20px;
+}
+
+/* Alertas */
+.alert-box {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.alert-box.error {
+  background-color: rgba(185, 28, 28, 0.2);
+  color: #fca5a5;
+  border: 1px solid #b91c1c;
+}
+
+.alert-box.success {
+  background-color: rgba(21, 128, 61, 0.2);
+  color: #86efac;
+  border: 1px solid #15803d;
+}
+
+/* Formulario inputs */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  font-size: 15px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.input-container input,
+.select-role {
+  width: 100%;
+  padding: 12px 14px 12px 38px;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  font-size: 14px;
+  color: #ffffff;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+.select-role {
+  appearance: none;
+  cursor: pointer;
+}
+
+.select-role option {
+  background-color: #0c0a18;
+  color: #ffffff;
+}
+
+.input-container input:focus,
+.select-role:focus {
+  border-color: #a855f7;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.2);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 13px;
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.btn-submit:hover {
+  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.4);
+}
+
+.demo-section {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.15);
+  text-align: center;
+}
+
+.demo-title {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.btn-demo.style-link {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-demo.style-link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.login-footer {
+  margin-top: 20px;
+  font-size: 11px;
+  color: #64748b;
+  text-align: center;
+}
