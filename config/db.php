@@ -3,7 +3,7 @@
 $host = 'localhost';
 $db   = 'academia_ritmo';
 $user = 'root';
-$pass = '1234'; // Contraseña por defecto de XAMPP / Laragon
+$pass = '1234';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
