@@ -1,5 +1,6 @@
 # Sistema de Gestión - Academia de Baile "Ritmo"
 
+
 ## Objetivo
 Plataforma web responsiva para conectar la recepción con los salones de baile en tiempo real. Permite validar la solvencia financiera de los alumnos de manera discreta durante el pase de lista y controlar el aforo máximo de los talleres para evitar sobrecupos.
 
