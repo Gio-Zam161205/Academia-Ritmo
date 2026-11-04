@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Estilos Institucionales - Academia de Baile "Ritmo" (Login y Registro)
-   ========================================================================== */
-
 * {
   margin: 0;
   padding: 0;
@@ -9,14 +5,23 @@
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+#bgCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background-color: #0c0a18;
+}
+
 body {
-  background: #f1f5f9;
-  color: #0f172a;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  overflow-x: hidden;
 }
 
 .login-wrapper {
@@ -25,58 +30,62 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .brand-header {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .brand-icon {
-  font-size: 42px;
+  font-size: 38px;
   background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-  width: 72px;
-  height: 72px;
-  border-radius: 20px;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 12px auto;
-  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+  margin: 0 auto 10px auto;
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.4);
 }
 
 .brand-title {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 800;
-  color: #1e1b4b;
+  color: #ffffff;
   letter-spacing: -0.5px;
 }
 
 .brand-subtitle {
   font-size: 13px;
-  color: #64748b;
+  color: #cbd5e1;
   font-weight: 500;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .login-card {
-  background: #ffffff;
+  background-color: rgba(12, 10, 24, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   width: 100%;
   border-radius: 20px;
-  padding: 32px 28px;
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
-  border: 1px solid #e2e8f0;
+  padding: 30px 26px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .card-title {
   font-size: 20px;
   font-weight: 700;
-  color: #0f172a;
+  color: #ffffff;
 }
 
 .card-instruction {
   font-size: 13px;
-  color: #64748b;
+  color: #94a3b8;
   margin-top: 4px;
   margin-bottom: 20px;
 }
@@ -87,34 +96,31 @@ body {
   font-size: 13px;
   font-weight: 600;
   margin-bottom: 18px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 .alert-box.error {
-  background-color: #fef2f2;
-  color: #b91c1c;
-  border: 1px solid #fca5a5;
+  background-color: rgba(185, 28, 28, 0.2);
+  color: #fca5a5;
+  border: 1px solid #b91c1c;
 }
 
 .alert-box.success {
-  background-color: #f0fdf4;
-  color: #15803d;
-  border: 1px solid #86efac;
+  background-color: rgba(21, 128, 61, 0.2);
+  color: #86efac;
+  border: 1px solid #15803d;
 }
 
 .form-group {
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .form-group label {
   display: block;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  color: #334155;
+  color: #cbd5e1;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.5px;
   margin-bottom: 6px;
 }
 
@@ -127,33 +133,26 @@ body {
 .input-icon {
   position: absolute;
   left: 12px;
-  font-size: 16px;
+  font-size: 15px;
+  opacity: 0.7;
 }
 
-.input-container input,
-.select-role {
+.input-container input {
   width: 100%;
-  padding: 12px 14px 12px 40px;
-  border: 1.5px solid #cbd5e1;
+  padding: 12px 14px 12px 38px;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
   border-radius: 10px;
   font-size: 14px;
-  font-weight: 500;
-  color: #0f172a;
+  color: #ffffff;
   outline: none;
+  background-color: rgba(255, 255, 255, 0.05);
   transition: all 0.2s ease;
-  background-color: #f8fafc;
 }
 
-.select-role {
-  appearance: none;
-  cursor: pointer;
-}
-
-.input-container input:focus,
-.select-role:focus {
-  border-color: #4f46e5;
-  background-color: #ffffff;
-  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+.input-container input:focus {
+  border-color: #a855f7;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.2);
 }
 
 .toggle-password {
@@ -162,20 +161,15 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 16px;
-  opacity: 0.6;
-  transition: opacity 0.2s;
-}
-
-.toggle-password:hover {
-  opacity: 1;
+  font-size: 15px;
+  opacity: 0.7;
 }
 
 .form-options {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   font-size: 12px;
 }
 
@@ -183,12 +177,12 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #475569;
+  color: #cbd5e1;
   cursor: pointer;
 }
 
 .forgot-link {
-  color: #4f46e5;
+  color: #c084fc;
   text-decoration: none;
   font-weight: 600;
 }
@@ -199,8 +193,8 @@ body {
 
 .btn-submit {
   width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  padding: 13px;
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -208,24 +202,16 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.1s ease, box-shadow 0.2s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
 }
 
 .btn-submit:hover {
-  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.35);
-}
-
-.btn-submit:active {
-  transform: scale(0.98);
+  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.4);
 }
 
 .demo-section {
-  margin-top: 24px;
-  padding-top: 20px;
-  border-top: 1px dashed #e2e8f0;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.15);
 }
 
 .demo-title {
@@ -234,35 +220,28 @@ body {
   font-weight: 700;
   color: #94a3b8;
   text-transform: uppercase;
-  margin-bottom: 10px;
-}
-
-.demo-buttons {
-  display: flex;
-  gap: 10px;
+  margin-bottom: 8px;
 }
 
 .btn-demo {
-  flex: 1;
-  padding: 8px 10px;
-  background-color: #f1f5f9;
-  border: 1px solid #cbd5e1;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  color: #334155;
+  color: #ffffff;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .btn-demo:hover {
-  background-color: #e2e8f0;
-  color: #0f172a;
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .login-footer {
-  margin-top: 24px;
+  margin-top: 20px;
   font-size: 11px;
-  color: #94a3b8;
+  color: #64748b;
   text-align: center;
 }
