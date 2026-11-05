@@ -1,26 +1,29 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
-require_once '../config/db.php'; // Conexión PDO centralizada[cite: 4, 8]
+require_once '../config/db.php'; // Conexión PDO centralizada[cite: 4]
 
 try {
-    // Consulta SQL normalizada en 3FN que calcula el aforo consumido dinámicamente
-    $query = "SELECT 
-                g.id_grupo,
-                g.nombre_clase,
-                g.cupo_maximo,
-                COUNT(i.id_inscripcion) AS ocupacion_actual,
-                (g.cupo_maximo - COUNT(i.id_inscripcion)) AS cupo_disponible
-              FROM Grupo_Taller g
-              LEFT JOIN Inscripcion i 
-                ON g.id_grupo = i.id_grupo AND i.estado_inscripcion = 'ACTIVA'
-              GROUP BY g.id_grupo, g.nombre_clase, g.cupo_maximo";
+    $sql = "SELECT g.id_grupo, g.nombre_clase, g.cupo_maximo, g.costo_cuota,
+                   CONCAT(i.nombre, ' ', i.apellidos) AS nombre_instructor,
+                   (g.cupo_maximo - COUNT(ins.id_inscripcion)) AS cupo_disponible,
+                   COUNT(ins.id_inscripcion) AS ocupacion_actual
+            FROM grupo_taller g
+            LEFT JOIN instructor i ON g.id_instructor = i.id_instructor
+            LEFT JOIN inscripcion ins ON g.id_grupo = ins.id_grupo AND ins.estado_inscripcion = 'ACTIVA'
+            GROUP BY g.id_grupo, g.nombre_clase, g.cupo_maximo, g.costo_cuota, i.nombre, i.apellidos";
 
-    $stmt = $pdo->prepare($query);
-    $stmt->execute();
+    $stmt = $pdo->query($sql);
     $grupos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    echo json_encode(['status' => 'success', 'data' => $grupos]);
+    echo json_encode([
+        'status' => 'success',
+        'data'   => $grupos
+    ]);
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+    echo json_encode([
+        'status'  => 'error',
+        'message' => 'Error al consultar aforos: ' . $e->getMessage()
+    ]);
 }
+exit();
