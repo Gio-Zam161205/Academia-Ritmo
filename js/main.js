@@ -1,122 +1,214 @@
 /* ==========================================================================
-   ACADEMIA RITMO - LÓGICA DE INTERACCIÓN INTEGRAL (CU-01 & CU-02)
-   Materia: Ingeniería de Software
-   Archivo: JS/main.js
+   ACADEMIA RITMO - LÓGICA DE INTERFAZ E ILUMINACIÓN LIGERA DE FONDO (CU-01)
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
   initCU01();
-  initCU02();
+  initBgCanvas();
 });
 
-/* --------------------------------------------------------------------------
-   CU-01: REGISTRAR ASISTENCIA Y VALIDAR PAGO (DOCENTE MÓVIL)
-   -------------------------------------------------------------------------- */
+/* --- LÓGICA DE ASISTENCIA Y CONTADORES --- */
 function initCU01() {
   const switchBtns = document.querySelectorAll('.cu01-switch');
   const syncBtn = document.getElementById('cu01-sync-btn');
   const modal = document.getElementById('cu01-modal');
   const modalClose = document.getElementById('cu01-modal-close');
   const counterTag = document.getElementById('cu01-counter');
+  const metaTitleTag = document.getElementById('meta-title');
+  const studentList = document.getElementById('student-list');
   const groupSelect = document.getElementById('cu01-group-select');
 
-  if (!switchBtns.length) return;
+  if (!studentList) return;
 
-  // Parámetros de congruencia con la BD (Salsa Intermedio tiene 18 alumnos inscritos)
-  const TOTAL_INSCRITOS = 18;
-  // Representa los 15 alumnos restantes del grupo que ya tienen su registro base
-  const BASE_PRESENTES = 15;
-
-  // Actualiza el indicador respetando la nómina global de 18 alumnos
   function updateCounter() {
-    const visiblesActivos = document.querySelectorAll('.cu01-switch.active').length;
-    const totalPresentes = BASE_PRESENTES + visiblesActivos;
-    
+    const totalAlumnos = studentList.querySelectorAll('.student-card').length;
+    const presentes = studentList.querySelectorAll('.cu01-switch.active').length;
+
     if (counterTag) {
-      counterTag.textContent = `${totalPresentes} / ${TOTAL_INSCRITOS} Presentes`;
+      counterTag.textContent = `${presentes} / ${totalAlumnos} Presentes`;
+    }
+
+    if (metaTitleTag) {
+      metaTitleTag.textContent = `Nómina del Grupo (${totalAlumnos} Alumnos)`;
     }
   }
 
-  // Interacción táctil en los conmutadores de presencia
   switchBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const card = btn.closest('.student-card');
       const isPresent = btn.classList.toggle('active');
 
       if (isPresent) {
-        btn.innerHTML = `<span class="icon">✓</span> Presente`;
+        btn.innerHTML = `<span>✓</span> Presente`;
         card.classList.add('marked');
       } else {
-        btn.innerHTML = `<span class="icon">✕</span> Falta`;
+        btn.innerHTML = `<span>✕</span> Falta`;
         card.classList.remove('marked');
       }
       updateCounter();
     });
   });
 
-  // Apertura de modal al sincronizar
   if (syncBtn && modal) {
     syncBtn.addEventListener('click', () => {
       modal.classList.add('active');
     });
   }
 
-  // Cierre de modal
   if (modalClose && modal) {
     modalClose.addEventListener('click', () => {
       modal.classList.remove('active');
     });
   }
 
-  // Cambio de grupo en el selector
-  if (groupSelect) {
-    groupSelect.addEventListener('change', () => {
-      alert(`Consultando base de datos: Cargando nómina del grupo "${groupSelect.options[groupSelect.selectedIndex].text}"...`);
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
     });
   }
+
+  if (groupSelect) {
+    groupSelect.addEventListener('change', () => {
+      console.log(`Cargando grupo: ${groupSelect.options[groupSelect.selectedIndex].text}`);
+    });
+  }
+
+  updateCounter();
 }
 
-/* --------------------------------------------------------------------------
-   CU-02: CONTROL DE AFORO E INSCRIPCIONES (RECEPCIÓN ESCRITORIO)
-   -------------------------------------------------------------------------- */
+/* --- CANVAS DE PARTÍCULAS LIGERAS NEÓN --- */
+function initBgCanvas() {
+  const canvas = document.getElementById('instructorBgCanvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  let width, height;
+
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Partículas sutiles de polvo neón
+  const particles = Array.from({ length: 35 }, () => ({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    radius: Math.random() * 2 + 0.8,
+    speedX: Math.random() * 0.4 - 0.2,
+    speedY: Math.random() * 0.4 - 0.2,
+    alpha: Math.random() * 0.4 + 0.15
+  }));
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    // Fondo base degradado
+    const grad = ctx.createRadialGradient(
+      width / 2, height / 2, 50,
+      width / 2, height / 2, Math.max(width, height) * 0.7
+    );
+    grad.addColorStop(0, '#1c1038');
+    grad.addColorStop(1, '#0c0a18');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, width, height);
+
+    // Dibujar y mover partículas
+    particles.forEach(p => {
+      p.x += p.speedX;
+      p.y += p.speedY;
+
+      if (p.x < 0) p.x = width;
+      if (p.x > width) p.x = 0;
+      if (p.y < 0) p.y = height;
+      if (p.y > height) p.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(168, 85, 247, ${p.alpha})`;
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = '#a855f7';
+      ctx.fill();
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* parte de recepcionista bro*/
+
+
+/* ==========================================================================
+   ACADEMIA RITMO - LÓGICA DE RECEPCIÓN Y BLOQUEO DE SOBRECUPO (CU-02)
+   ========================================================================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof initCU01 === 'function') initCU01();
+  if (typeof initBgCanvas === 'function') initBgCanvas();
+  initCU02();
+});
+
 function initCU02() {
   const tallerSelect = document.getElementById('cu02-taller-select');
-  const btnInscribir = document.getElementById('cu02-btn-inscribir');
   const alertSobrecupo = document.getElementById('cu02-alert-sobrecupo');
-  const toastSuccess = document.getElementById('cu02-toast');
+  const btnInscribir = document.getElementById('cu02-btn-inscribir');
+  const toast = document.getElementById('cu02-toast');
 
   if (!tallerSelect || !btnInscribir) return;
 
-  // Manejo de disponibilidad y regla de sobrecupo (RF-05)
-  tallerSelect.addEventListener('change', () => {
-    const selectedOption = tallerSelect.options[tallerSelect.selectedIndex];
-    const cupo = parseInt(selectedOption.getAttribute('data-cupo'), 10);
+  function evaluarCupo() {
+    const optionSelected = tallerSelect.options[tallerSelect.selectedIndex];
+    const cupoDisponible = parseInt(optionSelected.dataset.cupo || '0');
 
-    if (cupo <= 0) {
-      // Bloqueo estricto por sobrecupo (0 lugares libres)
-      if (alertSobrecupo) alertSobrecupo.classList.add('visible');
+    if (cupoDisponible <= 0) {
+      // Bloquear botón y mostrar alerta de sobrecupo
+      alertSobrecupo.classList.add('visible');
       btnInscribir.disabled = true;
       btnInscribir.classList.add('disabled');
       btnInscribir.textContent = 'Inscripción Inhabilitada (Sobrecupo)';
     } else {
-      // Taller con lugares disponibles
-      if (alertSobrecupo) alertSobrecupo.classList.remove('visible');
+      // Habilitar inscripción
+      alertSobrecupo.classList.remove('visible');
       btnInscribir.disabled = false;
       btnInscribir.classList.remove('disabled');
-      btnInscribir.textContent = 'Confirmar Inscripción';
+      btnInscribir.textContent = 'Confirmar e Inscribir Alumno ➔';
     }
-  });
+  }
 
-  // Confirmación de inscripción
-  btnInscribir.addEventListener('click', (e) => {
-    e.preventDefault();
+  tallerSelect.addEventListener('change', evaluarCupo);
+
+  btnInscribir.addEventListener('click', () => {
     if (btnInscribir.disabled) return;
 
-    if (toastSuccess) {
-      toastSuccess.classList.add('show');
+    if (toast) {
+      toast.classList.add('active');
       setTimeout(() => {
-        toastSuccess.classList.remove('show');
+        toast.classList.remove('active');
       }, 3500);
     }
   });
+
+  evaluarCupo();
 }
+
+
+
+
