@@ -1,0 +1,225 @@
+<?php
+session_start();
+
+// Oiméramo ndoikéi gueteri usuario sesión-pe, oho jey logon-pe
+if (!isset($_SESSION['user_id'])) {
+    header('Location: log.html');
+    exit();
+}
+
+// Omohenda léi rehegua variables oguerekóva réra ha rol
+$nombre_usuario = $_SESSION['nombre'] ?? 'Usuario Recepción';
+$rol_usuario    = $_SESSION['rol'] ?? 'RECEPCIONISTA';
+
+// Ojapo iniciales avatar-pe guarã (techapyrã: "Laura Sánchez" -> "LS")
+$partes_nombre = explode(' ', trim($nombre_usuario));
+$iniciales = strtoupper(substr($partes_nombre[0], 0, 1));
+if (count($partes_nombre) > 1) {
+    $iniciales .= strtoupper(substr($partes_nombre[count($partes_nombre) - 1], 0, 1));
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academia Ritmo - Recepción</title>
+
+  <!-- Fuentes e Iconos Institucionales -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Hojas de Estilo -->
+  <link rel="stylesheet" href="css/styleR.css">
+</head>
+<body class="desk-body">
+
+  <!-- Canvas Animado de Fondo Neón -->
+  <canvas id="instructorBgCanvas"></canvas>
+
+  <!-- Navbar Recepción Neón -->
+  <nav class="desk-navbar">
+    <div class="navbar-container">
+
+      <!-- Branding / Logo -->
+      <div class="brand-title">
+        <div class="brand-icon-wrapper">
+          <span class="brand-icon">💃</span>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Academia Ritmo</span>
+          <span class="brand-sub">Sistema de Gestión e Inscripciones</span>
+        </div>
+      </div>
+
+      <!-- Widget de Usuario y Cerrar Sesión Dinámico -->
+      <div class="user-session-widget">
+        <div class="user-profile">
+          <div class="user-avatar"><?php echo htmlspecialchars($iniciales); ?></div>
+          <div class="user-info">
+            <span class="user-name"><?php echo htmlspecialchars($nombre_usuario); ?></span>
+            <span class="user-role"><?php echo htmlspecialchars(ucfirst(strtolower($rol_usuario))); ?></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pestañas de Navegación Módulo CU-02 -->
+    <div class="nav-tabs-container">
+      <div class="nav-tabs">
+        <button class="btn-tab active" onclick="abrirTab('tab-aulas', this)">📊 Disponibilidad</button>
+        <button class="btn-tab" onclick="abrirTab('tab-inscribir', this)">📝 Inscribir y Cobrar</button>
+        <button class="btn-tab" onclick="abrirTab('tab-crear', this)">➕ Crear Taller</button>
+        <button class="btn-tab" onclick="abrirTab('tab-liberar', this)">🔓 Liberar Cupo</button>
+        <a href="php/logout.php" class="btn-logout" title="Cerrar sesión institucional">
+          <span>Cerrar Sesión</span> 🚪
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Panel Principal CU-02: Control de Aforos e Inscripciones -->
+  <main class="cu02-main-container">
+    <div class="panel-header-title">
+      <h1>Control de Aforos e Inscripciones</h1>
+      <p>Monitoreo de ocupación de salas en tiempo real y prevención automática de sobrecupo.</p>
+    </div>
+
+    <!-- Pestaña 1: Disponibilidad de Aulas -->
+    <div id="tab-aulas" class="tab-content active-tab">
+      <section class="desk-card glass-card">
+        <div class="card-title-bar">
+          <h3>📊 Disponibilidad de Aulas</h3>
+          <span class="status-live">● En Vivo</span>
+        </div>
+        <div class="table-responsive">
+          <table class="desk-table">
+            <thead>
+              <tr>
+                <th>Clase / Taller</th>
+                <th>Cupo</th>
+                <th>Ocupación Actual</th>
+                <th>Libres</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Se puebla dinámicamente desde MySQL mediante js/mainR.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- Pestaña 2: Inscribir y Cobrar Alumno -->
+    <div id="tab-inscribir" class="tab-content">
+      <section class="desk-card glass-card">
+        <h3>📝 Registrar Alumno, Inscripción y Pago</h3>
+        <form id="cu02-form" onsubmit="return false;">
+
+          <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <div class="form-group" style="flex: 1;">
+              <label class="field-label">Nombre(s)</label>
+              <input type="text" id="alumno-nombre" placeholder="Ej. Carlos" class="form-control-readonly">
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label class="field-label">Apellidos</label>
+              <input type="text" id="alumno-apellidos" placeholder="Ej. Gómez Pérez" class="form-control-readonly">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="field-label">Teléfono de Contacto</label>
+            <input type="tel" id="alumno-telefono" placeholder="Ej. 7771234567" class="form-control-readonly">
+          </div>
+
+          <div class="form-group">
+            <label class="field-label">Taller a Inscribir</label>
+            <select class="custom-select-desk" id="cu02-taller-select"></select>
+          </div>
+
+          <div class="form-group payment-box">
+            <label class="field-label" style="color: #86efac; margin-bottom: 5px;">💳 Registro de Pago Inicial</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <input type="checkbox" id="pago-confirmado" checked style="width: 18px; height: 18px; cursor: pointer;">
+              <label for="pago-confirmado" style="font-size: 13px; color: #ffffff; cursor: pointer;">
+                Registrar cuota abonada ($<span id="monto-cuota-display">0.00</span>) para marcar al alumno como Solvente
+              </label>
+            </div>
+          </div>
+
+          <div class="alert-danger-desk" id="cu02-alert-sobrecupo">
+            <strong>⚠️ Bloqueo de Sobrecupo Activo</strong>
+            <p>El taller seleccionado ha alcanzado su capacidad máxima (Bloqueo activo en BD).</p>
+          </div>
+
+          <button type="button" class="btn-desk-action" id="cu02-btn-inscribir" style="margin-top: 15px;">
+            Completar Registro y Pago ➔
+          </button>
+        </form>
+      </section>
+    </div>
+
+    <!-- Pestaña 3: Crear Taller y Asignar Instructor -->
+    <div id="tab-crear" class="tab-content">
+      <section class="desk-card glass-card">
+        <h3>➕ Registrar Nuevo Grupo o Taller</h3>
+        <form id="form-nuevo-grupo">
+          <div class="form-group">
+            <label class="field-label">Nombre del Taller / Clase</label>
+            <input type="text" id="nuevo-nombre-clase" placeholder="Ej. Salsa Avanzado" class="form-control-readonly">
+          </div>
+
+          <div class="form-group">
+            <label class="field-label">Instructor Asignado</label>
+            <select class="custom-select-desk" id="nuevo-instructor-select">
+              <option value="" disabled selected>Cargando instructores...</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="display:flex; gap:10px;">
+            <div style="flex:1;">
+              <label class="field-label">Cupo Máximo</label>
+              <input type="number" id="nuevo-cupo-maximo" placeholder="20" class="form-control-readonly">
+            </div>
+            <div style="flex:1;">
+              <label class="field-label">Costo Cuota ($)</label>
+              <input type="number" id="nuevo-costo-cuota" placeholder="500" class="form-control-readonly">
+            </div>
+          </div>
+
+          <button type="button" class="btn-desk-action" id="btn-crear-grupo" style="margin-top:15px; background: #10b981;">
+            Guardar Taller y Asignar Instructor
+          </button>
+        </form>
+      </section>
+    </div>
+
+    <!-- Pestaña 4: Liberar Cupo -->
+    <div id="tab-liberar" class="tab-content">
+      <section class="desk-card glass-card">
+        <h3>🔓 Liberar Cupo (Baja de Alumno)</h3>
+        <p style="color: #94a3b8; font-size: 13px; margin-bottom: 15px;">Selecciona al alumno que ya no asistirá para cambiar su inscripción a CANCELADA y liberar su cupo automáticamente.</p>
+        <form id="form-liberar-cupo">
+          <div class="form-group">
+            <label class="field-label">Inscripción Activa</label>
+            <select class="custom-select-desk" id="select-liberar"></select>
+          </div>
+          <button type="button" class="btn-desk-action" id="btn-liberar-cupo" style="background: #ef4444; margin-top: 15px;">
+            Liberar Espacio
+          </button>
+        </form>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- Notificación Toast -->
+  <div class="toast-msg" id="cu02-toast"></div>
+
+  <!-- Scripts -->
+  <script src="js/mainR.js"></script>
+</body>
+</html>
