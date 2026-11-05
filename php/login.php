@@ -37,7 +37,7 @@ try {
         } elseif ($user['rol'] === 'INSTRUCTOR') {
             $redirectUrl = 'instructor.html';
         } elseif ($user['rol'] === 'RECEPCIONISTA') {
-            $redirectUrl = 'index.html';
+            $redirectUrl = 'index.php';
         }
 
         echo json_encode([
