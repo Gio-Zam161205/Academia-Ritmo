@@ -2,7 +2,15 @@
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 
+<<<<<<< HEAD
 // Verificar si el usuario ha iniciado sesión
+=======
+<<<<<<< HEAD
+// Verificar si el usuario ha iniciado sesión
+=======
+// Si no hay sesión activa, responder 401 Unauthorized
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
+>>>>>>> ea5cd51dde0c32d7e7098f31b7880451a8c3ef9d
 if (!isset($_SESSION['user_id'])) {
     http_response_code(401);
     echo json_encode([
@@ -15,7 +23,15 @@ if (!isset($_SESSION['user_id'])) {
 $nombre_completo = $_SESSION['nombre'] ?? 'Usuario Recepción';
 $rol             = $_SESSION['rol'] ?? 'RECEPCIONISTA';
 
+<<<<<<< HEAD
 // Generar iniciales dinámicas (ej: "Laura Sánchez" -> "LS")
+=======
+<<<<<<< HEAD
+// Generar iniciales dinámicas (ej: "Laura Sánchez" -> "LS")
+=======
+// Generar iniciales para el avatar (ej. "Laura Sánchez" -> "LS")
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
+>>>>>>> ea5cd51dde0c32d7e7098f31b7880451a8c3ef9d
 $partes = explode(' ', trim($nombre_completo));
 $iniciales = strtoupper(substr($partes[0], 0, 1));
 if (count($partes) > 1) {
@@ -28,5 +44,14 @@ echo json_encode([
     'rol'    => ucfirst(strtolower($rol)),
     'iniciales' => $iniciales
 ]);
+<<<<<<< HEAD
 exit();
 ?>
+=======
+<<<<<<< HEAD
+exit();
+?>
+=======
+exit();
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
+>>>>>>> ea5cd51dde0c32d7e7098f31b7880451a8c3ef9d
