@@ -511,6 +511,10 @@ html, body.desk-body, body.instructor-body {
   display: block;
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> ea5cd51dde0c32d7e7098f31b7880451a8c3ef9d
 /* ==========================================================================
    PERSONALIZACIÓN DE LA BARRA DE DESPLAZAMIENTO (SCROLLBAR NEÓN DARK)
    ========================================================================== */
@@ -545,4 +549,33 @@ html, body.desk-body, body.instructor-body {
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(168, 85, 247, 0.4) #0c0a18;
+<<<<<<< HEAD
 }
+=======
+}
+=======
+.tab-content {
+  display: none;
+}
+
+.tab-content.active-tab {
+  display: block;
+  animation: fadeInTab 0.3s ease-in-out;
+}
+
+@keyframes fadeInTab {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Caja de información del pago/adeudo */
+.payment-box {
+  background: rgba(16, 185, 129, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  margin-top: 10px;
+}
+
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
+>>>>>>> ea5cd51dde0c32d7e7098f31b7880451a8c3ef9d
