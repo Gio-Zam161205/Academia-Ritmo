@@ -39,7 +39,9 @@
 └── README.md                      # Documentación oficial del repositorio
 
 
-🛡️ Regla de Negocio Automatizada: Trigger de SobrecupoEl bloqueo físico frente al sobrecupo está implementado mediante un disparador de base de datos tipo BEFORE INSERT:DELIMITER //
+🛡️ Regla de Negocio Automatizada: Trigger de SobrecupoEl bloqueo físico frente al sobrecupo está implementado mediante un disparador de base de datos tipo
+
+ BEFORE INSERT:DELIMITER //
 CREATE TRIGGER tg_bloquear_sobrecupo
 BEFORE INSERT ON inscripcion
 FOR EACH ROW
