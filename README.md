@@ -7,6 +7,8 @@
 
 ---
 
+
+
 ## 📌 1. Objetivo del Sistema
 El sistema de la **Academia de Baile "Ritmo"** es una plataforma web responsiva unificada (PWA) diseñada para conectar la caja de recepción con los salones de baile en tiempo real. Atiende dos problemáticas críticas detectadas durante la fase de análisis operativo[cite: 5]:
 
