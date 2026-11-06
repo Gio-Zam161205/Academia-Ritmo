@@ -8,8 +8,11 @@
 ---
 
 ## 📌 1. Objetivo del Sistema
-El sistema de la **Academia de Baile "Ritmo"** es una plataforma web responsiva unificada diseñada para conectar la caja de recepción con los salones de baile en tiempo real. Atiende dos problemáticas críticas operativas[cite: 5]:
+El sistema de la **Academia de Baile "Ritmo"** es una plataforma web responsiva unificada diseñada para conectar 
+la caja de recepción con los salones de baile en tiempo real. Atiende dos problemáticas críticas operativas[cite: 5]:
+
 1. **Frenar la fuga de capital:** Permite al instructor validar discretamente la solvencia financiera del alumno (*Solvente / Pendiente*) al pasar lista desde su smartphone, protegiendo la privacidad de los datos financieros.
+
 2. **Control de Aforo y Sobrecupo:** Permite a la recepcionista consultar la disponibilidad física de los salones en tiempo real e impide automáticamente nuevas inscripciones cuando el cupo máximo de una clase o taller llega a cero mediante reglas activas (*Triggers*).
 
 ---
@@ -79,4 +82,21 @@ Paso 5: Ejecutar la Aplicación en el NavegadorAbre tu navegador web e ingresa o
 
 Prueba de Conexión App–BD (Evidencia E1): http://localhost/Academia_Ritmo/public/conexion.php[cite: 1]Pantalla de Inicio de Sesión: http://localhost/Academia_Ritmo/log.htmlPanel Principal de Recepción y Control de Aforos: http://localhost/Academia_Ritmo/index.html
 
-🔑 6. Credenciales de Prueba del SistemaPara iniciar sesión y verificar los roles directamente en la plataforma[cite: 4, 8]:RolCorreo / UsuarioContraseñaVista AsignadaAdministradoradmin@ritmo.eduadmin123admin.htmlInstructorinstructor@ritmo.eduadmin123instructor.htmlRecepcionistarecepcion@ritmo.eduadmin123index.html
+🔑 6. Credenciales de Prueba del SistemaPara iniciar sesión y verificar los roles directamente en la plataforma
+[cite: 4, 8]:
+RolCorreo / 
+Usuario  admin@ritmo.edu
+Contraseña admin123
+Vista Asignada Administrador admin.html
+RolCorreo / 
+Usuario 
+Instructor
+instructor@ritmo.edu
+Contraseña admin123
+Vista Asignada  instructor.html
+Recepcionista
+RolCorreo / 
+Usuario 
+recepcion@ritmo.edu
+Contraseña admin123
+Vista Asignada index.html
