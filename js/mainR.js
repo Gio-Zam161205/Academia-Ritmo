@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* ==========================================================================
    ACADEMIA RITMO - LÓGICA DE RECEPCIÓN Y CONTROL DE AFOROS (CU-02)
    ========================================================================== */
@@ -5,12 +6,21 @@
 let listaInscripcionesLiberarCache = [];
 let listaTalleresCache = [];
 let idInscripcionPendienteBaja = null;
+=======
+
+/* ==========================================================================
+   ACADEMIA RITMO - LÓGICA INTEGRADA DE RECEPCIÓN Y CONTROL DE AFOROS (CU-02)
+   ========================================================================== */
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavegacionPestanas();
   initCU02();
   cargarUsuarioSesion();
+<<<<<<< HEAD
   crearModalConfirmacionHTML();
+=======
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 });
 
 // 1. MANEJO DE PESTAÑAS (TABS)
@@ -37,7 +47,11 @@ function initNavegacionPestanas() {
   });
 }
 
+<<<<<<< HEAD
 // Función global de respaldo para llamadas inline 'onclick'
+=======
+// Función global de respaldo para llamadas inline 'onclick' si existen en HTML
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 function abrirTab(idTab, btn) {
   document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active-tab'));
   document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active'));
@@ -47,6 +61,7 @@ function abrirTab(idTab, btn) {
   if (btn) btn.classList.add('active');
 }
 
+<<<<<<< HEAD
 // 2. MODAL PERSONALIZADO CON ANIMACIÓN DE CONFIRMACIÓN (PALOMITA VERDE)
 function crearModalConfirmacionHTML() {
   if (document.getElementById('modal-confirm-baja')) return;
@@ -191,6 +206,9 @@ function cerrarModal() {
 }
 
 // 3. RECUPERAR DATOS DE LA SESIÓN DEL USUARIO
+=======
+// 2. RECUPERAR DATOS DE LA SESIÓN DEL USUARIO
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 async function cargarUsuarioSesion() {
   const avatarElem = document.getElementById('nav-user-avatar');
   const nameElem = document.getElementById('nav-user-name');
@@ -216,14 +234,21 @@ async function cargarUsuarioSesion() {
   }
 }
 
+<<<<<<< HEAD
 // 4. MÓDULO PRINCIPAL DE RECEPCIÓN (CU-02)
+=======
+// 3. MÓDULO PRINCIPAL DE RECEPCIÓN
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 function initCU02() {
   const tallerSelect = document.getElementById('cu02-taller-select');
   const selectLiberar = document.getElementById('select-liberar');
   const selectPendientes = document.getElementById('select-alumnos-pendientes');
   const instructorSelect = document.getElementById('nuevo-instructor-select');
   const alertSobrecupo = document.getElementById('cu02-alert-sobrecupo');
+<<<<<<< HEAD
   const inputFiltroLiberar = document.getElementById('input-filtro-liberar');
+=======
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
   
   const btnInscribir = document.getElementById('cu02-btn-inscribir');
   const btnPagoAdeudo = document.getElementById('btn-registrar-pago-adeudo');
@@ -247,9 +272,14 @@ function initCU02() {
       if (resAforos.ok) {
         const dataAforos = await resAforos.json();
         if (dataAforos.status === 'success') {
+<<<<<<< HEAD
           listaTalleresCache = dataAforos.data || [];
           renderizarTablaAulas(listaTalleresCache);
           renderizarOpcionesSelect(listaTalleresCache);
+=======
+          renderizarTablaAulas(dataAforos.data);
+          renderizarOpcionesSelect(dataAforos.data);
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
         }
       }
 
@@ -263,7 +293,17 @@ function initCU02() {
       }
 
       // 3. Obtener Inscripciones para Liberar Cupo
+<<<<<<< HEAD
       await cargarInscripcionesParaLiberar();
+=======
+      const resInsc = await fetch('php/liberar_cupo.php?accion=listar');
+      if (resInsc.ok) {
+        const dataInsc = await resInsc.json();
+        if (dataInsc.status === 'success') {
+          renderizarListaLiberar(dataInsc.data);
+        }
+      }
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 
       // 4. Obtener Alumnos Pendientes de Pago
       await cargarAlumnosPendientes();
@@ -337,6 +377,7 @@ function initCU02() {
     actualizarMontoCuota();
   }
 
+<<<<<<< HEAD
   // Búsqueda y Filtrado en Tiempo Real para Liberar Cupo
   async function cargarInscripcionesParaLiberar() {
     try {
@@ -353,6 +394,8 @@ function initCU02() {
     }
   }
 
+=======
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
   function renderizarListaLiberar(inscripciones) {
     if (!selectLiberar) return;
     selectLiberar.innerHTML = '';
@@ -365,6 +408,7 @@ function initCU02() {
     selectLiberar.innerHTML = '<option value="" disabled selected>Selecciona al alumno a dar de baja...</option>';
     inscripciones.forEach(i => {
       const alumnoNombre = i.alumno || i.alumno_nombre || 'Alumno Registrado';
+<<<<<<< HEAD
       const opt = document.createElement('option');
       opt.value = i.id_inscripcion;
       opt.textContent = `${alumnoNombre} (${i.nombre_clase})`;
@@ -384,6 +428,9 @@ function initCU02() {
       });
 
       renderizarListaLiberar(filtrados);
+=======
+      selectLiberar.innerHTML += `<option value="${i.id_inscripcion}">ID #${i.id_inscripcion} - ${alumnoNombre} (${i.nombre_clase})</option>`;
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
     });
   }
 
@@ -456,7 +503,11 @@ function initCU02() {
       if (btnInscribir) {
         btnInscribir.disabled = false;
         btnInscribir.classList.remove('disabled');
+<<<<<<< HEAD
         btnInscribir.textContent = 'Completar Registro y Pago ➔';
+=======
+        btnInscribir.textContent = 'Completar Registro ➔';
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
       }
     }
   }
@@ -481,7 +532,11 @@ function initCU02() {
       const registrarPago = chkPago && chkPago.checked ? '1' : '0';
 
       if (!nombre || !apellidos || !idGrupo) {
+<<<<<<< HEAD
         alert('Por favor ingresa el nombre, apellidos y selecciona un taller.');
+=======
+        alert('Ingresa el nombre, apellidos y selecciona un taller.');
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
         return;
       }
 
@@ -510,12 +565,18 @@ function initCU02() {
           evaluarCupo();
         }
       } catch (e) {
+<<<<<<< HEAD
         console.error('Error al inscribir:', e);
         alert('Error al procesar el registro.');
         evaluarCupo();
       } finally {
         btnInscribir.disabled = false;
         btnInscribir.textContent = 'Completar Registro y Pago ➔';
+=======
+        console.error(e);
+        alert('Error al procesar el registro.');
+        evaluarCupo();
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
       }
     });
   }
@@ -612,13 +673,20 @@ function initCU02() {
     });
   }
 
+<<<<<<< HEAD
   // I. EVENTO: ABRIR MODAL AL CLICKEAR "LIBERAR ESPACIO"
   if (btnLiberarCupo) {
     btnLiberarCupo.addEventListener('click', () => {
+=======
+  // I. EVENTO: LIBERAR CUPO (BAJA DE ALUMNO)
+  if (btnLiberarCupo) {
+    btnLiberarCupo.addEventListener('click', async () => {
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
       if (!selectLiberar || !selectLiberar.value) {
         alert('Selecciona una inscripción activa para liberar.');
         return;
       }
+<<<<<<< HEAD
 
       const textoSeleccionado = selectLiberar.options[selectLiberar.selectedIndex]?.textContent;
       idInscripcionPendienteBaja = selectLiberar.value;
@@ -656,11 +724,21 @@ function initCU02() {
       try {
         btnConfirmar.disabled = true;
         if (txtBtnConfirmar) txtBtnConfirmar.textContent = 'Procesando...';
+=======
+      
+      const fd = new FormData();
+      fd.append('id_inscripcion', selectLiberar.value);
+
+      try {
+        btnLiberarCupo.disabled = true;
+        btnLiberarCupo.textContent = 'Procesando...';
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 
         const res = await fetch('php/liberar_cupo.php', { method: 'POST', body: fd });
         const result = await res.json();
 
         if (result.status === 'success') {
+<<<<<<< HEAD
           // 1. Mostrar pantalla de éxito con la palomita verde animada
           document.getElementById('modal-content-body').style.display = 'none';
           document.getElementById('modal-success-state').style.display = 'block';
@@ -686,6 +764,22 @@ function initCU02() {
       }
     }
   });
+=======
+          mostrarToast(result.message);
+          await cargarAforosCentrales();
+        } else {
+          alert(result.message);
+        }
+      } catch (e) {
+        console.error(e);
+        alert('Error al liberar espacio.');
+      } finally {
+        btnLiberarCupo.disabled = false;
+        btnLiberarCupo.textContent = 'Liberar Espacio';
+      }
+    });
+  }
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 
   // Carga inicial al arrancar el módulo
   cargarAforosCentrales();
