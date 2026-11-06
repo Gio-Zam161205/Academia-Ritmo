@@ -3,7 +3,7 @@
 $host = 'localhost';
 $db   = 'academia_ritmo';
 $user = 'root';
-$pass = '';
+$pass = '1234';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
