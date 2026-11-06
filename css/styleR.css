@@ -1,20 +1,5 @@
-<<<<<<< HEAD
 /* ==========================================================================
    ACADEMIA RITMO - ESTILOS MÓDULO RECEPCIÓN (CU-02) Y NAVBAR NEÓN
-=======
-<<<<<<< HEAD
-/* ==========================================================================
-   ACADEMIA RITMO - ESTILOS MÓDULO RECEPCIÓN (CU-02) Y NAVBAR NEÓN
-=======
-
-
-/*parte de recepcionisra bro*/
-
-/* ==========================================================================
-   ACADEMIA RITMO - ESTILOS GENERALES Y MÓDULO DE RECEPCIÓN (CU-02)
-   Materia: Ingeniería de Software
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
    ========================================================================== */
 
 :root {
@@ -26,13 +11,7 @@
   --success: #22c55e;
   --success-bg: rgba(34, 197, 94, 0.15);
   --warning: #f59e0b;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
   --warning-bg: rgba(245, 158, 11, 0.15);
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
   --danger: #ef4444;
   --danger-bg: rgba(239, 68, 68, 0.18);
   --text-main: #f8fafc;
@@ -47,78 +26,22 @@
   padding: 0;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-    /* Estilos pyahu umi pestañas-pe g̃uarã (Ani emoambue nde CSS yma) */
-.nav-tabs { 
-  display: flex; 
-  gap: 10px; 
-  flex-wrap: wrap; 
-  margin-top: 10px; 
-}
-.btn-tab { 
-  background: rgba(255, 255, 255, 0.05); 
-  border: 1px solid rgba(255, 255, 255, 0.1); 
-  color: #94a3b8; 
-  padding: 8px 16px; 
-  border-radius: 8px; 
-  font-size: 13px; 
-  font-weight: 600; 
-  cursor: pointer; 
-  transition: all 0.3s ease; 
-}
-.btn-tab:hover { 
-  background: rgba(168, 85, 247, 0.15); 
-  color: #fff; 
-}
-.btn-tab.active { 
-  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); 
-  color: #fff; 
-  border-color: transparent; 
-  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4); 
-}
-.tab-content { 
-  display: none; 
-  animation: fadeIn 0.4s ease; 
-}
-.tab-content.active-tab {
-  display: block; 
-}
-    
-@keyframes fadeIn { 
-  from { 
-    opacity: 0; 
-    transform: translateY(10px); 
-  }
-   to { 
-    opacity: 1; 
-    transform: translateY(0); 
-  } 
-}
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 
-body.desk-body, body.instructor-body {
+/* FIX DE DESPLAZAMIENTO: Fijar el alto al marco visible de la pantalla */
+html, body.desk-body, body.instructor-body {
   background-color: var(--bg-dark);
   color: var(--text-main);
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden; /* Evita que la ventana completa genere scroll */
 }
 
-<<<<<<< HEAD
-/* CANVAS DE PARTÍCULAS EN SEGUNDO PLANO */
-=======
-<<<<<<< HEAD
-/* CANVAS DE PARTÍCULAS EN SEGUNDO PLANO */
-=======
 /* CANVAS DE PARTÍCULAS AL FONDO */
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 #instructorBgCanvas {
   position: fixed;
   top: 0;
@@ -129,14 +52,10 @@ body.desk-body, body.instructor-body {
   pointer-events: none;
 }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 /* ==========================================================================
    NAVBAR NEÓN INSTITUCIONAL Y CERRAR SESIÓN
    ========================================================================== */
-.desk-navbar {
+.desk-navbar, .main-navbar {
   position: relative;
   z-index: 10;
   background: rgba(12, 10, 24, 0.85);
@@ -145,20 +64,7 @@ body.desk-body, body.instructor-body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   padding: 16px 28px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-<<<<<<< HEAD
-=======
-=======
-/* NAVBAR NEÓN */
-.desk-navbar, .main-navbar {
-  position: relative;
-  z-index: 10;
-  background: rgba(12, 10, 24, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--card-border);
-  padding: 12px 24px;
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
+  flex-shrink: 0; /* Evita que la barra superior cambie su tamaño */
 }
 
 .navbar-container {
@@ -172,10 +78,6 @@ body.desk-body, body.instructor-body {
 .brand-title {
   display: flex;
   align-items: center;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
   gap: 14px;
 }
 
@@ -192,20 +94,6 @@ body.desk-body, body.instructor-body {
 .brand-icon {
   font-size: 24px;
   line-height: 1;
-<<<<<<< HEAD
-=======
-=======
-  gap: 12px;
-}
-
-.brand-icon {
-  font-size: 22px;
-  background: var(--primary-gradient);
-  padding: 8px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 }
 
 .brand-text {
@@ -214,33 +102,16 @@ body.desk-body, body.instructor-body {
 }
 
 .brand-name {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
   font-size: 19px;
   font-weight: 800;
   color: #ffffff;
   letter-spacing: -0.4px;
-<<<<<<< HEAD
-=======
-=======
-  font-size: 17px;
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: -0.3px;
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 }
 
 .brand-sub {
   font-size: 11px;
   font-weight: 600;
   color: #c084fc;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
   letter-spacing: 0.3px;
 }
 
@@ -249,18 +120,6 @@ body.desk-body, body.instructor-body {
   display: flex;
   align-items: center;
   gap: 14px;
-<<<<<<< HEAD
-=======
-=======
-}
-
-/* WIDGET DE USUARIO */
-.user-session-widget {
-  display: flex;
-  align-items: center;
-  gap: 16px;
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 }
 
 .user-profile {
@@ -269,53 +128,22 @@ body.desk-body, body.instructor-body {
   gap: 10px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-<<<<<<< HEAD
   padding: 6px 14px 6px 6px;
-=======
-<<<<<<< HEAD
-  padding: 6px 14px 6px 6px;
-=======
-  padding: 5px 12px 5px 6px;
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
   border-radius: 30px;
 }
 
 .user-avatar {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
   width: 34px;
   height: 34px;
   border-radius: 50%;
   background: var(--primary-gradient);
   color: #ffffff;
   font-size: 13px;
-<<<<<<< HEAD
-=======
-=======
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--primary-gradient);
-  color: #ffffff;
-  font-size: 12px;
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-<<<<<<< HEAD
   box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
-=======
-<<<<<<< HEAD
-  box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
-=======
-  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 }
 
 .user-info {
@@ -338,10 +166,6 @@ body.desk-body, body.instructor-body {
 .btn-logout {
   color: #fca5a5;
   text-decoration: none;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
   font-size: 12.5px;
   font-weight: 700;
   background: rgba(239, 68, 68, 0.12);
@@ -349,28 +173,12 @@ body.desk-body, body.instructor-body {
   padding: 8px 16px;
   border-radius: 12px;
   transition: all 0.25s ease;
-<<<<<<< HEAD
-=======
-=======
-  font-size: 12px;
-  font-weight: 700;
-  background: rgba(239, 68, 68, 0.15);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  padding: 7px 14px;
-  border-radius: 10px;
-  transition: all 0.2s ease;
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
 .btn-logout:hover {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
   background: rgba(239, 68, 68, 0.25);
   border-color: rgba(239, 68, 68, 0.6);
   box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
@@ -434,20 +242,12 @@ body.desk-body, body.instructor-body {
 /* ==========================================================================
    PANEL CENTRAL Y TARJETAS GLASSMORPHISM
    ========================================================================== */
-<<<<<<< HEAD
-=======
-=======
-  background: rgba(239, 68, 68, 0.3);
-  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
-  transform: translateY(-1px);
-}
-
-/* ENCABEZADO Y GRID CU-02 */
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
+/* FIX DE DESPLAZAMIENTO: Scroll exclusivo para la zona de contenido */
 .cu02-main-container {
   position: relative;
   z-index: 5;
+  flex: 1; 
+  overflow-y: auto; /* Permite scroll vertical únicamente si las tarjetas sobrepasan el espacio disponible */
   max-width: 1100px;
   margin: 0 auto;
   width: 100%;
@@ -470,10 +270,6 @@ body.desk-body, body.instructor-body {
   margin-top: 4px;
 }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1.35fr 1fr;
@@ -487,9 +283,6 @@ body.desk-body, body.instructor-body {
   }
 }
 
-/* TARJETAS GLASSMORPHISM */
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 .glass-card, .desk-card {
   background: var(--card-bg);
   backdrop-filter: blur(16px);
@@ -523,15 +316,7 @@ body.desk-body, body.instructor-body {
   border-radius: 12px;
 }
 
-<<<<<<< HEAD
 /* TABLA DE AFOROS */
-=======
-<<<<<<< HEAD
-/* TABLA DE AFOROS */
-=======
-/* TABLA DE AFOROS EN DARK MODE */
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 .table-responsive {
   overflow-x: auto;
 }
@@ -558,36 +343,12 @@ body.desk-body, body.instructor-body {
   font-size: 14px;
 }
 
-<<<<<<< HEAD
 .class-name { color: #ffffff; font-size: 15px; }
 .class-sub { color: var(--text-muted); font-size: 12px; }
-=======
-<<<<<<< HEAD
-.class-name { color: #ffffff; font-size: 15px; }
-.class-sub { color: var(--text-muted); font-size: 12px; }
-=======
-.class-name {
-  color: #ffffff;
-  font-size: 15px;
-}
-
-.class-sub {
-  color: var(--text-muted);
-  font-size: 12px;
-}
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 
 .seats-free.primary { color: #c084fc; }
 .seats-free.danger { color: #fca5a5; }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-/* BADGES / PILLS */
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 .pill {
   display: inline-block;
   font-size: 11px;
@@ -608,13 +369,6 @@ body.desk-body, body.instructor-body {
   color: #fca5a5;
 }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-/* BARRAS DE PROGRESO DE OCUPACIÓN */
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 .progress-info {
   font-size: 12px;
   font-weight: 700;
@@ -635,41 +389,17 @@ body.desk-body, body.instructor-body {
   transition: width 0.3s ease;
 }
 
-<<<<<<< HEAD
 .progress-bar-indigo {
-=======
-<<<<<<< HEAD
-.progress-bar-indigo {
-=======
-.progress-bar-indigo { 
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
   background: var(--primary-gradient);
   box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
 }
 
-<<<<<<< HEAD
 .progress-bar-red {
-=======
-<<<<<<< HEAD
-.progress-bar-red {
-=======
-.progress-bar-red { 
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
   background: linear-gradient(90deg, #ef4444, #f43f5e);
   box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
 }
 
-<<<<<<< HEAD
 /* FORMULARIOS Y ALERTAS */
-=======
-<<<<<<< HEAD
-/* FORMULARIOS Y ALERTAS */
-=======
-/* FORMULARIO Y BLOQUEO DE SOBRECUPPO */
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 .form-group {
   margin-top: 16px;
 }
@@ -714,24 +444,12 @@ body.desk-body, body.instructor-body {
   color: #ffffff;
 }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 .payment-box {
   background: rgba(168, 85, 247, 0.1);
   padding: 12px;
   border-radius: 8px;
   border: 1px solid rgba(168, 85, 247, 0.3);
   margin-top: 15px;
-<<<<<<< HEAD
-=======
-=======
-.custom-select-desk:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.25);
->>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
->>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
 }
 
 .alert-danger-desk {
@@ -791,4 +509,27 @@ body.desk-body, body.instructor-body {
 
 .toast-msg.active {
   display: block;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active-tab {
+  display: block;
+  animation: fadeInTab 0.3s ease-in-out;
+}
+
+@keyframes fadeInTab {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Caja de información del pago/adeudo */
+.payment-box {
+  background: rgba(16, 185, 129, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  margin-top: 10px;
 }
