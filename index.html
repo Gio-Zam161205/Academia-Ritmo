@@ -1,3 +1,4 @@
+index.html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -33,7 +34,7 @@
         </div>
       </div>
       
-      <!-- Widget de Usuario y Cerrar Sesión (Conectado vía JS fetch) -->
+      <!-- Widget de Usuario -->
       <div class="user-session-widget">
         <div class="user-profile">
           <div class="user-avatar" id="nav-user-avatar">--</div>
@@ -49,13 +50,14 @@
 
     </div>
 
-    <!-- Pestañas de Navegación Módulo CU-02 -->
+    <!-- Pestañas de Navegación Módulo Recepción -->
     <div class="nav-tabs-container">
       <div class="nav-tabs">
-        <button class="btn-tab active" onclick="abrirTab('tab-aulas', this)">📊 Disponibilidad</button>
-        <button class="btn-tab" onclick="abrirTab('tab-inscribir', this)">📝 Inscribir y Cobrar</button>
-        <button class="btn-tab" onclick="abrirTab('tab-crear', this)">➕ Crear Taller</button>
-        <button class="btn-tab" onclick="abrirTab('tab-liberar', this)">🔓 Liberar Cupo</button>
+        <button class="btn-tab active" data-tab="tab-aulas">📊 Disponibilidad</button>
+        <button class="btn-tab" data-tab="tab-inscribir">📝 Inscribir y Cobrar</button>
+        <button class="btn-tab" data-tab="tab-pagar-adeudo">💳 Cobrar Adeudo</button>
+        <button class="btn-tab" data-tab="tab-crear">➕ Crear Taller</button>
+        <button class="btn-tab" data-tab="tab-liberar">🔓 Liberar Cupo</button>
       </div>
     </div>
   </nav>
@@ -63,8 +65,8 @@
   <!-- Panel Principal CU-02: Control de Aforos e Inscripciones -->
   <main class="cu02-main-container">
     <div class="panel-header-title">
-      <h1>Control de Aforos e Inscripciones (CU-02)</h1>
-      <p>Monitoreo de ocupación de salas en tiempo real y prevención automática de sobrecupo.</p>
+      <h1>Control de Aforos y Caja de Recepción</h1>
+      <p>Monitoreo de ocupación de salas en tiempo real y regularización inmediata de adeudos.</p>
     </div>
 
     <!-- Pestaña 1: Disponibilidad de Aulas -->
@@ -93,10 +95,10 @@
       </section>
     </div>
 
-    <!-- Pestaña 2: Inscribir y Cobrar Alumno -->
+    <!-- Pestaña 2: Inscribir Alumno -->
     <div id="tab-inscribir" class="tab-content">
       <section class="desk-card glass-card">
-        <h3>📝 Registrar Alumno, Inscripción y Pago</h3>
+        <h3>📝 Registrar Alumno e Inscripción Inicial</h3>
         <form id="cu02-form" onsubmit="return false;">
           
           <div style="display: flex; gap: 10px; margin-top: 10px;">
@@ -136,17 +138,47 @@
           </div>
 
           <button type="button" class="btn-desk-action" id="cu02-btn-inscribir" style="margin-top: 15px;">
-            Completar Registro y Pago ➔
+            Completar Registro ➔
           </button>
         </form>
       </section>
     </div>
 
-    <!-- Pestaña 3: Crear Taller y Asignar Instructor -->
+    <!-- Pestaña 3: Registrar Pago Posterior (Cobrar Adeudo) -->
+    <div id="tab-pagar-adeudo" class="tab-content">
+      <section class="desk-card glass-card">
+        <h3>💳 REGISTRAR PAGO DE ALUMNO PENDIENTE</h3>
+        <p style="color: #94a3b8; font-size: 13px; margin-bottom: 15px;">
+          Selecciona a un alumno registrado como <strong>Pendiente</strong> para registrar su pago y cambiar automáticamente su estatus a <strong>Solvente</strong> en el pase de lista del instructor.
+        </p>
+
+        <form id="form-pagar-adeudo" onsubmit="return false;">
+          <div class="form-group">
+            <label class="field-label">Seleccionar Alumno con Adeudo</label>
+            <select class="custom-select-desk" id="select-alumnos-pendientes">
+              <option value="" disabled selected>Cargando alumnos pendientes...</option>
+            </select>
+          </div>
+
+          <div id="info-adeudo-box" style="display:none; background: rgba(59, 130, 246, 0.1); padding: 12px; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.3); margin-bottom: 15px;">
+            <p style="font-size: 14px; color: #93c5fd; margin: 0;">
+              Monto a Cobrar: <strong>$<span id="monto-adeudo-display">0.00</span></strong><br>
+              Concepto: <span id="concepto-adeudo-display">Pago de cuota</span>
+            </p>
+          </div>
+
+          <button type="button" class="btn-desk-action" id="btn-registrar-pago-adeudo" style="background: #10b981;">
+            Registrar Pago y Marcar Solvente ➔
+          </button>
+        </form>
+      </section>
+    </div>
+
+    <!-- Pestaña 4: Crear Taller -->
     <div id="tab-crear" class="tab-content">
       <section class="desk-card glass-card">
         <h3>➕ Registrar Nuevo Grupo o Taller</h3>
-        <form id="form-nuevo-grupo">
+        <form id="form-nuevo-grupo" onsubmit="return false;">
           <div class="form-group">
             <label class="field-label">Nombre del Taller / Clase</label>
             <input type="text" id="nuevo-nombre-clase" placeholder="Ej. Salsa Avanzado" class="form-control-readonly">
@@ -177,12 +209,12 @@
       </section>
     </div>
 
-    <!-- Pestaña 4: Liberar Cupo -->
+    <!-- Pestaña 5: Liberar Cupo -->
     <div id="tab-liberar" class="tab-content">
       <section class="desk-card glass-card">
         <h3>🔓 Liberar Cupo (Baja de Alumno)</h3>
         <p style="color: #94a3b8; font-size: 13px; margin-bottom: 15px;">Selecciona al alumno que ya no asistirá para cambiar su inscripción a CANCELADA y liberar su cupo automáticamente.</p>
-        <form id="form-liberar-cupo">
+        <form id="form-liberar-cupo" onsubmit="return false;">
           <div class="form-group">
             <label class="field-label">Inscripción Activa</label>
             <select class="custom-select-desk" id="select-liberar"></select>
