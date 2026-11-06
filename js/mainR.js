@@ -1,12 +1,26 @@
+<<<<<<< HEAD
+/* ==========================================================================
+   ACADEMIA RITMO - LÓGICA DE RECEPCIÓN Y CONTROL DE AFOROS (CU-02)
+   ========================================================================== */
+
+let listaInscripcionesLiberarCache = [];
+let listaTalleresCache = [];
+let idInscripcionPendienteBaja = null;
+=======
 
 /* ==========================================================================
    ACADEMIA RITMO - LÓGICA INTEGRADA DE RECEPCIÓN Y CONTROL DE AFOROS (CU-02)
    ========================================================================== */
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavegacionPestanas();
   initCU02();
   cargarUsuarioSesion();
+<<<<<<< HEAD
+  crearModalConfirmacionHTML();
+=======
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 });
 
 // 1. MANEJO DE PESTAÑAS (TABS)
@@ -33,7 +47,11 @@ function initNavegacionPestanas() {
   });
 }
 
+<<<<<<< HEAD
+// Función global de respaldo para llamadas inline 'onclick'
+=======
 // Función global de respaldo para llamadas inline 'onclick' si existen en HTML
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 function abrirTab(idTab, btn) {
   document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active-tab'));
   document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active'));
@@ -43,7 +61,154 @@ function abrirTab(idTab, btn) {
   if (btn) btn.classList.add('active');
 }
 
+<<<<<<< HEAD
+// 2. MODAL PERSONALIZADO CON ANIMACIÓN DE CONFIRMACIÓN (PALOMITA VERDE)
+function crearModalConfirmacionHTML() {
+  if (document.getElementById('modal-confirm-baja')) return;
+
+  const modalOverlay = document.createElement('div');
+  modalOverlay.id = 'modal-confirm-baja';
+  modalOverlay.style.cssText = `
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(8, 7, 18, 0.85);
+    backdrop-filter: blur(12px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    animation: fadeIn 0.2s ease;
+  `;
+
+  modalOverlay.innerHTML = `
+    <div style="
+      background: #120f24;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(239, 68, 68, 0.2);
+      border-radius: 18px;
+      padding: 28px;
+      max-width: 440px;
+      width: 90%;
+      color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      position: relative;
+    ">
+      <!-- FORMULARIO DE CONFIRMACIÓN -->
+      <div id="modal-content-body">
+        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+          <div style="
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+          ">⚠️</div>
+          <div>
+            <h3 style="margin: 0; font-size: 18px; font-weight: 800; color: #ffffff;">Confirmación de Baja</h3>
+            <span style="font-size: 12px; font-weight: 600; color: #ef4444;">Acción irreversible</span>
+          </div>
+        </div>
+
+        <p style="font-size: 13.5px; color: #cbd5e1; margin-bottom: 10px; line-height: 1.5;">
+          ¿Estás seguro de cancelar la inscripción del alumno:
+        </p>
+
+        <div id="modal-alumno-nombre" style="
+          font-weight: 700;
+          font-size: 15px;
+          color: #c084fc;
+          background: rgba(168, 85, 247, 0.12);
+          padding: 12px 16px;
+          border-radius: 10px;
+          border: 1px solid rgba(168, 85, 247, 0.3);
+          margin-bottom: 16px;
+          word-break: break-word;
+        ">--</div>
+
+        <p style="font-size: 12px; color: #94a3b8; margin-bottom: 24px; line-height: 1.4;">
+          Esta acción cambiará el estado a <strong>CANCELADO</strong> y liberará el cupo en la sala inmediatamente.
+        </p>
+
+        <div style="display: flex; justify-content: flex-end; gap: 12px;">
+          <button id="btn-modal-cancelar" style="
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #cbd5e1;
+            padding: 11px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.2s ease;
+          ">Cancelar</button>
+          
+          <button id="btn-modal-confirmar" style="
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border: none;
+            color: #fff;
+            padding: 11px 22px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13.5px;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            display: flex; align-items: center; gap: 8px;
+            transition: all 0.2s ease;
+          ">
+            <span id="txt-btn-modal-confirmar">Confirmar Baja ➔</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ANIMACIÓN DE ÉXITO (PALOMITA VERDE) -->
+      <div id="modal-success-state" style="display: none; text-align: center; padding: 15px 10px;">
+        <div style="
+          width: 68px; height: 68px;
+          background: rgba(34, 197, 94, 0.15);
+          border: 2px solid #22c55e;
+          border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          margin: 0 auto 14px auto;
+          box-shadow: 0 0 25px rgba(34, 197, 94, 0.4);
+          animation: popSuccess 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        ">
+          <span style="font-size: 34px; color: #22c55e; font-weight: 900; line-height: 1;">✓</span>
+        </div>
+        <h4 style="margin: 0 0 4px 0; font-size: 17px; font-weight: 800; color: #ffffff;">¡Baja Procesada!</h4>
+        <p style="font-size: 12.5px; color: #86efac; margin: 0;">Inscripción cancelada y cupo liberado.</p>
+      </div>
+    </div>
+  `;
+
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @keyframes popSuccess {
+      0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+      75% { transform: scale(1.15) rotate(5deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+  `;
+  document.head.appendChild(style);
+  document.body.appendChild(modalOverlay);
+
+  document.getElementById('btn-modal-cancelar').addEventListener('click', cerrarModal);
+}
+
+function cerrarModal() {
+  const modalOverlay = document.getElementById('modal-confirm-baja');
+  if (modalOverlay) {
+    modalOverlay.style.display = 'none';
+    document.getElementById('modal-content-body').style.display = 'block';
+    document.getElementById('modal-success-state').style.display = 'none';
+  }
+  idInscripcionPendienteBaja = null;
+}
+
+// 3. RECUPERAR DATOS DE LA SESIÓN DEL USUARIO
+=======
 // 2. RECUPERAR DATOS DE LA SESIÓN DEL USUARIO
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 async function cargarUsuarioSesion() {
   const avatarElem = document.getElementById('nav-user-avatar');
   const nameElem = document.getElementById('nav-user-name');
@@ -69,13 +234,21 @@ async function cargarUsuarioSesion() {
   }
 }
 
+<<<<<<< HEAD
+// 4. MÓDULO PRINCIPAL DE RECEPCIÓN (CU-02)
+=======
 // 3. MÓDULO PRINCIPAL DE RECEPCIÓN
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 function initCU02() {
   const tallerSelect = document.getElementById('cu02-taller-select');
   const selectLiberar = document.getElementById('select-liberar');
   const selectPendientes = document.getElementById('select-alumnos-pendientes');
   const instructorSelect = document.getElementById('nuevo-instructor-select');
   const alertSobrecupo = document.getElementById('cu02-alert-sobrecupo');
+<<<<<<< HEAD
+  const inputFiltroLiberar = document.getElementById('input-filtro-liberar');
+=======
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
   
   const btnInscribir = document.getElementById('cu02-btn-inscribir');
   const btnPagoAdeudo = document.getElementById('btn-registrar-pago-adeudo');
@@ -99,8 +272,14 @@ function initCU02() {
       if (resAforos.ok) {
         const dataAforos = await resAforos.json();
         if (dataAforos.status === 'success') {
+<<<<<<< HEAD
+          listaTalleresCache = dataAforos.data || [];
+          renderizarTablaAulas(listaTalleresCache);
+          renderizarOpcionesSelect(listaTalleresCache);
+=======
           renderizarTablaAulas(dataAforos.data);
           renderizarOpcionesSelect(dataAforos.data);
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
         }
       }
 
@@ -114,6 +293,9 @@ function initCU02() {
       }
 
       // 3. Obtener Inscripciones para Liberar Cupo
+<<<<<<< HEAD
+      await cargarInscripcionesParaLiberar();
+=======
       const resInsc = await fetch('php/liberar_cupo.php?accion=listar');
       if (resInsc.ok) {
         const dataInsc = await resInsc.json();
@@ -121,6 +303,7 @@ function initCU02() {
           renderizarListaLiberar(dataInsc.data);
         }
       }
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 
       // 4. Obtener Alumnos Pendientes de Pago
       await cargarAlumnosPendientes();
@@ -194,6 +377,25 @@ function initCU02() {
     actualizarMontoCuota();
   }
 
+<<<<<<< HEAD
+  // Búsqueda y Filtrado en Tiempo Real para Liberar Cupo
+  async function cargarInscripcionesParaLiberar() {
+    try {
+      const resInsc = await fetch('php/liberar_cupo.php?accion=listar');
+      if (resInsc.ok) {
+        const dataInsc = await resInsc.json();
+        if (dataInsc.status === 'success') {
+          listaInscripcionesLiberarCache = dataInsc.data || [];
+          renderizarListaLiberar(listaInscripcionesLiberarCache);
+        }
+      }
+    } catch (e) {
+      console.error('Error al obtener lista para liberar:', e);
+    }
+  }
+
+=======
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
   function renderizarListaLiberar(inscripciones) {
     if (!selectLiberar) return;
     selectLiberar.innerHTML = '';
@@ -206,7 +408,29 @@ function initCU02() {
     selectLiberar.innerHTML = '<option value="" disabled selected>Selecciona al alumno a dar de baja...</option>';
     inscripciones.forEach(i => {
       const alumnoNombre = i.alumno || i.alumno_nombre || 'Alumno Registrado';
+<<<<<<< HEAD
+      const opt = document.createElement('option');
+      opt.value = i.id_inscripcion;
+      opt.textContent = `${alumnoNombre} (${i.nombre_clase})`;
+      selectLiberar.appendChild(opt);
+    });
+  }
+
+  // Evento Input para filtrar dinámicamente el <select>
+  if (inputFiltroLiberar) {
+    inputFiltroLiberar.addEventListener('input', (e) => {
+      const texto = e.target.value.toLowerCase().trim();
+      
+      const filtrados = listaInscripcionesLiberarCache.filter(item => {
+        const alumno = (item.alumno || item.alumno_nombre || '').toLowerCase();
+        const clase = (item.nombre_clase || '').toLowerCase();
+        return alumno.includes(texto) || clase.includes(texto);
+      });
+
+      renderizarListaLiberar(filtrados);
+=======
       selectLiberar.innerHTML += `<option value="${i.id_inscripcion}">ID #${i.id_inscripcion} - ${alumnoNombre} (${i.nombre_clase})</option>`;
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
     });
   }
 
@@ -279,7 +503,11 @@ function initCU02() {
       if (btnInscribir) {
         btnInscribir.disabled = false;
         btnInscribir.classList.remove('disabled');
+<<<<<<< HEAD
+        btnInscribir.textContent = 'Completar Registro y Pago ➔';
+=======
         btnInscribir.textContent = 'Completar Registro ➔';
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
       }
     }
   }
@@ -304,7 +532,11 @@ function initCU02() {
       const registrarPago = chkPago && chkPago.checked ? '1' : '0';
 
       if (!nombre || !apellidos || !idGrupo) {
+<<<<<<< HEAD
+        alert('Por favor ingresa el nombre, apellidos y selecciona un taller.');
+=======
         alert('Ingresa el nombre, apellidos y selecciona un taller.');
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
         return;
       }
 
@@ -333,9 +565,18 @@ function initCU02() {
           evaluarCupo();
         }
       } catch (e) {
+<<<<<<< HEAD
+        console.error('Error al inscribir:', e);
+        alert('Error al procesar el registro.');
+        evaluarCupo();
+      } finally {
+        btnInscribir.disabled = false;
+        btnInscribir.textContent = 'Completar Registro y Pago ➔';
+=======
         console.error(e);
         alert('Error al procesar el registro.');
         evaluarCupo();
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
       }
     });
   }
@@ -432,13 +673,58 @@ function initCU02() {
     });
   }
 
+<<<<<<< HEAD
+  // I. EVENTO: ABRIR MODAL AL CLICKEAR "LIBERAR ESPACIO"
+  if (btnLiberarCupo) {
+    btnLiberarCupo.addEventListener('click', () => {
+=======
   // I. EVENTO: LIBERAR CUPO (BAJA DE ALUMNO)
   if (btnLiberarCupo) {
     btnLiberarCupo.addEventListener('click', async () => {
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
       if (!selectLiberar || !selectLiberar.value) {
         alert('Selecciona una inscripción activa para liberar.');
         return;
       }
+<<<<<<< HEAD
+
+      const textoSeleccionado = selectLiberar.options[selectLiberar.selectedIndex]?.textContent;
+      idInscripcionPendienteBaja = selectLiberar.value;
+
+      const modal = document.getElementById('modal-confirm-baja');
+      const textElem = document.getElementById('modal-alumno-nombre');
+      const btnConfirmar = document.getElementById('btn-modal-confirmar');
+      const txtBtnConfirmar = document.getElementById('txt-btn-modal-confirmar');
+
+      if (modal && textElem) {
+        textElem.textContent = textoSeleccionado;
+        
+        // Resetear vista del modal
+        document.getElementById('modal-content-body').style.display = 'block';
+        document.getElementById('modal-success-state').style.display = 'none';
+        
+        if (btnConfirmar) btnConfirmar.disabled = false;
+        if (txtBtnConfirmar) txtBtnConfirmar.textContent = 'Confirmar Baja ➔';
+
+        modal.style.display = 'flex';
+      }
+    });
+  }
+
+  // CONFIRMACIÓN DE BAJA DENTRO DEL MODAL (PROCESANDO -> PALOMITA VERDE Y CIERRE AUTOMÁTICO)
+  document.addEventListener('click', async (e) => {
+    const btnConfirmar = e.target.closest('#btn-modal-confirmar');
+    if (btnConfirmar) {
+      if (!idInscripcionPendienteBaja) return;
+
+      const txtBtnConfirmar = document.getElementById('txt-btn-modal-confirmar');
+      const fd = new FormData();
+      fd.append('id_inscripcion', idInscripcionPendienteBaja);
+
+      try {
+        btnConfirmar.disabled = true;
+        if (txtBtnConfirmar) txtBtnConfirmar.textContent = 'Procesando...';
+=======
       
       const fd = new FormData();
       fd.append('id_inscripcion', selectLiberar.value);
@@ -446,11 +732,39 @@ function initCU02() {
       try {
         btnLiberarCupo.disabled = true;
         btnLiberarCupo.textContent = 'Procesando...';
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 
         const res = await fetch('php/liberar_cupo.php', { method: 'POST', body: fd });
         const result = await res.json();
 
         if (result.status === 'success') {
+<<<<<<< HEAD
+          // 1. Mostrar pantalla de éxito con la palomita verde animada
+          document.getElementById('modal-content-body').style.display = 'none';
+          document.getElementById('modal-success-state').style.display = 'block';
+
+          if (inputFiltroLiberar) inputFiltroLiberar.value = '';
+          await cargarAforosCentrales();
+
+          // 2. Cierre automático tras 800ms sin requerir clic manual
+          setTimeout(() => {
+            cerrarModal();
+          }, 800);
+
+        } else {
+          alert(result.message);
+          btnConfirmar.disabled = false;
+          if (txtBtnConfirmar) txtBtnConfirmar.textContent = 'Confirmar Baja ➔';
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error al liberar espacio.');
+        btnConfirmar.disabled = false;
+        if (txtBtnConfirmar) txtBtnConfirmar.textContent = 'Confirmar Baja ➔';
+      }
+    }
+  });
+=======
           mostrarToast(result.message);
           await cargarAforosCentrales();
         } else {
@@ -465,6 +779,7 @@ function initCU02() {
       }
     });
   }
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 
   // Carga inicial al arrancar el módulo
   cargarAforosCentrales();
