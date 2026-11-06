@@ -1,4 +1,4 @@
-liberar_cupo.php
+
 <?php
 header('Content-Type: application/json; charset=utf-8');
 require_once '../config/db.php'; // Conexión PDO centralizada
