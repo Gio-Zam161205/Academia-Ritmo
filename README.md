@@ -7,7 +7,14 @@
 
 ---
 
+<<<<<<< HEAD
+
+
+## 📌 1. Objetivo del Sistema
+El sistema de la **Academia de Baile "Ritmo"** es una plataforma web responsiva unificada (PWA) diseñada para conectar la caja de recepción con los salones de baile en tiempo real. Atiende dos problemáticas críticas detectadas durante la fase de análisis operativo[cite: 5]:
+=======
 📌 1. Objetivo del SistemaLa plataforma web responsiva unificada de la Academia de Baile "Ritmo" conecta la caja de recepción con los salones de clase en tiempo real para resolver dos problemáticas operativas críticas:Frenar la fuga de capital: Permite al instructor validar discretamente la solvencia financiera del alumno (Solvente / Pendiente) al pasar lista desde su smartphone, protegiendo la privacidad al omitir cifras de dinero.Control de aforo en tiempo real: Permite a la recepcionista consultar la disponibilidad física de los salones e impide automáticamente nuevas inscripciones cuando el cupo máximo llega a cero mediante un disparador lógico (Trigger) en la base de datos.
+>>>>>>> 2808bbc7bb3dcadca25d9e952f46bc199d461ff7
 
 👥 2. Actores y Roles OperativosInstructor de Baile: Accede desde navegadores móviles en su smartphone (BYOD) para tomar lista en menos de 2 minutos, verificar el estatus de pago y sincronizar automáticamente con la administración al cerrar sesión.Recepcionista: Opera desde la PC de escritorio en la caja para procesar altas con datos completos, cobrar mensualidades, registrar nuevos talleres y consultar los aforos disponibles por grupo.🛠️ 3. Stack TecnológicoFrontend: HTML5, CSS3 (Hojas de estilo neón/glassmorphism unificadas) y JavaScript ES6+ (Fetch API asíncrona).Backend: PHP 8.1+ utilizando PDO (PHP Data Objects) con consultas preparadas contra inyecciones SQL.Base de Datos: MySQL 8.0+ (Motor InnoDB, normalizado en Tercera Forma Normal - 3FN) con soporte para Triggers de control de sobrecupo.Servidor Local: Apache (XAMPP o Laragon) y Visual Studio Code.
 
