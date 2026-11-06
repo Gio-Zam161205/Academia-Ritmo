@@ -3,7 +3,10 @@ header('Content-Type: application/json; charset=utf-8');
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 >>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
 require_once '../config/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -68,6 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <<<<<<< HEAD
 ?>
 =======
+<<<<<<< HEAD
+?>
+=======
 ?>
 =======
 require_once '../config/db.php'; // Conexión PDO[cite: 4, 8]
@@ -96,3 +102,4 @@ try {
 }
 >>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
 >>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
