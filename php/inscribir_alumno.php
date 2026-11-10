@@ -1,5 +1,18 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
+>>>>>>> ea5cd51dde0c32d7e7098f31b7880451a8c3ef9d
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 require_once '../config/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -61,4 +74,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     exit();
 }
+<<<<<<< HEAD
 ?>
+=======
+<<<<<<< HEAD
+?>
+=======
+<<<<<<< HEAD
+?>
+=======
+<<<<<<< HEAD
+?>
+=======
+?>
+=======
+require_once '../config/db.php'; // Conexión PDO[cite: 4, 8]
+
+$id_alumno = $_POST['id_alumno'] ?? null;
+$id_grupo = $_POST['id_grupo'] ?? null;
+
+if (!$id_alumno || !$id_grupo) {
+    echo json_encode(['status' => 'error', 'message' => 'Faltan parámetros obligatorios.']);
+    exit;
+}
+
+try {
+    // Insertar la inscripción (El Trigger tg_bloquear_sobrecupo se activará automáticamente si cupo_disponible <= 0)[cite: 1, 6]
+    $stmt = $pdo->prepare("INSERT INTO Inscripcion (id_alumno, id_grupo, fecha_registro, estado_inscripcion) VALUES (:id_alumno, :id_grupo, CURRENT_DATE(), 'ACTIVA')");
+    $stmt->execute([
+        ':id_alumno' => $id_alumno,
+        ':id_grupo'  => $id_grupo
+    ]);
+
+    echo json_encode(['status' => 'success', 'message' => 'Inscripción registrada correctamente en la base de datos central.']);
+} catch (PDOException $e) {
+    // Captura de la excepción emitida por el Trigger SQL tg_bloquear_sobrecupo[cite: 1, 6]
+    http_response_code(400);
+    echo json_encode(['status' => 'error', 'message' => 'Error al inscribir: ' . $e->getMessage()]);
+}
+>>>>>>> 67d2bc69ae8e4f8d277a2c18d638aa84ed32fe2c
+>>>>>>> 569cd8ae07ecc1b02675baead4a319fe9e485cb6
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
+>>>>>>> ea5cd51dde0c32d7e7098f31b7880451a8c3ef9d
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
