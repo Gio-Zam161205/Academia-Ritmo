@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
+<<<<<<< HEAD
 -- Tiempo de generación: 06-11-2026 a las 14:07:23
+=======
+-- Tiempo de generación: 06-11-2026 a las 01:55:45
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 -- Versión del servidor: 8.0.41
 -- Versión de PHP: 8.0.30
 
@@ -43,12 +47,16 @@ INSERT INTO `alumno` (`id_alumno`, `nombre`, `apellidos`, `telefono`) VALUES
 (2, 'jeff', 'zeferino rodriguez', '123456789'),
 (3, 'Jovanny', 'Zamudio', '1325146847'),
 (4, 'Jovanny', 'Zamudio', '2135165'),
+<<<<<<< HEAD
 (5, 'luci', 'Zamudio', '16519849'),
 (6, 'Jovanny', 'Zamudio', '62519598'),
 (7, 'Jovanny', 'Zamudio', '54196549'),
 (8, 'Jovanny', 'Zamudio', '1541651'),
 (9, 'jeff', 'zeferino', '16565196'),
 (10, 'Jovanny', 'Zamudio', '6265516');
+=======
+(5, 'luci', 'Zamudio', '16519849');
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 
 -- --------------------------------------------------------
 
@@ -94,6 +102,7 @@ CREATE TABLE `grupo_taller` (
 -- Volcado de datos para la tabla `grupo_taller`
 --
 
+<<<<<<< HEAD
 INSERT INTO `grupo_taller` (`id_grupo`, `nombre_clase`, `tipo_clase`, `cupo_maximo`, `costo_cuota`, `id_instructor`, `salon`, `horario`) VALUES
 (2, 'salsa', 'Taller', 20, 250.00, 1, 'Sala A - Principal', '16:00 - 17:30'),
 (3, 'bachata', 'Taller', 15, 150.00, 2, 'Sala B - Cristal', '17:30 - 19:00'),
@@ -101,6 +110,14 @@ INSERT INTO `grupo_taller` (`id_grupo`, `nombre_clase`, `tipo_clase`, `cupo_maxi
 (7, 'salsa avanzado', 'Taller', 26, 400.00, 1, 'Sala A - Principal', '20:30 - 22:00'),
 (8, 'bachata intermedia', 'Taller', 1, 100.00, 1, 'Sala B - Cristal', '18:00 - 19:30'),
 (9, 'quebradita', 'Taller', 2, 80.00, 2, 'Sala A', '18:00 - 19:30');
+=======
+INSERT INTO `grupo_taller` (`id_grupo`, `nombre_clase`, `tipo_clase`, `cupo_maximo`, `costo_cuota`, `id_instructor`) VALUES
+(2, 'salsa', 'Taller', 20, 250.00, 1),
+(3, 'bachata', 'Taller', 15, 150.00, 2),
+(5, 'pop', 'Taller', 18, 150.00, 2),
+(7, 'salsa avanzado', 'Taller', 26, 400.00, 1),
+(8, 'bachata intermedia', 'Taller', 1, 100.00, 1);
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 
 -- --------------------------------------------------------
 
@@ -123,6 +140,7 @@ CREATE TABLE `inscripcion` (
 INSERT INTO `inscripcion` (`id_inscripcion`, `id_alumno`, `id_grupo`, `fecha_registro`, `estado_inscripcion`) VALUES
 (1, 1, 5, '2026-11-04', 'CANCELADA'),
 (2, 2, 8, '2026-11-04', 'CANCELADA'),
+<<<<<<< HEAD
 (3, 3, 8, '2026-11-05', 'CANCELADA'),
 (4, 4, 2, '2026-11-05', 'CANCELADA'),
 (5, 5, 2, '2026-11-05', 'CANCELADA'),
@@ -131,6 +149,11 @@ INSERT INTO `inscripcion` (`id_inscripcion`, `id_alumno`, `id_grupo`, `fecha_reg
 (8, 8, 9, '2026-11-06', 'ACTIVA'),
 (9, 9, 9, '2026-11-06', 'ACTIVA'),
 (10, 10, 8, '2026-11-06', 'ACTIVA');
+=======
+(3, 3, 8, '2026-11-05', 'ACTIVA'),
+(4, 4, 2, '2026-11-05', 'ACTIVA'),
+(5, 5, 2, '2026-11-05', 'ACTIVA');
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 
 --
 -- Disparadores `inscripcion`
@@ -171,6 +194,7 @@ INSERT INTO `instructor` (`id_instructor`, `nombre`, `apellidos`, `especialidad`
 (1, 'Gio', 'Instructor', 'Salsa y Bachata'),
 (2, 'jeff', 'General', 'Baile General');
 
+<<<<<<< HEAD
 -- --------------------------------------------------------
 
 --
@@ -198,6 +222,8 @@ INSERT INTO `log_acceso` (`id_log`, `usuario`, `correo`, `rol`, `fecha_hora`, `i
 (4, 'Jeff Zeferino', 'admin@ritmo.edu', 'ADMIN', '2026-11-06 01:32:32', '127.0.0.1 (Escritorio)', 'Exitoso'),
 (5, 'Jovanny Benítez Zamudio', 'benitezjovany200@gmail.com', 'RECEPCIONISTA', '2026-11-06 01:36:05', '127.0.0.1 (Móvil)', 'Exitoso');
 
+=======
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 -- --------------------------------------------------------
 
 --
@@ -220,10 +246,14 @@ CREATE TABLE `pago` (
 INSERT INTO `pago` (`id_pago`, `id_alumno`, `id_grupo`, `fecha_pago`, `monto`, `concepto`) VALUES
 (1, 1, 5, '2026-11-04', 150.00, 'Inscripción inicial: pop'),
 (2, 2, 8, '2026-11-04', 100.00, 'Inscripción inicial: bachata intermedia'),
+<<<<<<< HEAD
 (3, 5, 2, '2026-11-05', 250.00, 'Inscripción inicial: salsa'),
 (4, 3, 8, '2026-11-05', 100.00, 'Liquidación de adeudo: bachata intermedia'),
 (5, 9, 9, '2026-11-06', 80.00, 'Inscripción inicial: quebradita'),
 (6, 10, 8, '2026-11-06', 100.00, 'Inscripción inicial: bachata intermedia');
+=======
+(3, 5, 2, '2026-11-05', 250.00, 'Inscripción inicial: salsa');
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 
 -- --------------------------------------------------------
 
@@ -261,8 +291,12 @@ CREATE TABLE `vw_estatus_pago_alumnos` (
 ,`id_alumno` int
 ,`nombre` varchar(50)
 ,`apellidos` varchar(50)
+<<<<<<< HEAD
 ,`nombre_completo` varchar(101)
 ,`estado_pago` varchar(9)
+=======
+,`estatus_pago` varchar(9)
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 );
 
 -- --------------------------------------------------------
@@ -272,7 +306,11 @@ CREATE TABLE `vw_estatus_pago_alumnos` (
 --
 DROP TABLE IF EXISTS `vw_estatus_pago_alumnos`;
 
+<<<<<<< HEAD
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_estatus_pago_alumnos`  AS SELECT `i`.`id_grupo` AS `id_grupo`, `a`.`id_alumno` AS `id_alumno`, `a`.`nombre` AS `nombre`, `a`.`apellidos` AS `apellidos`, concat(`a`.`nombre`,' ',`a`.`apellidos`) AS `nombre_completo`, (case when (ifnull(sum(`p`.`monto`),0) >= `g`.`costo_cuota`) then 'Solvente' else 'Pendiente' end) AS `estado_pago` FROM (((`alumno` `a` join `inscripcion` `i` on(((`a`.`id_alumno` = `i`.`id_alumno`) and (`i`.`estado_inscripcion` = 'ACTIVA')))) join `grupo_taller` `g` on((`i`.`id_grupo` = `g`.`id_grupo`))) left join `pago` `p` on(((`a`.`id_alumno` = `p`.`id_alumno`) and (`g`.`id_grupo` = `p`.`id_grupo`)))) GROUP BY `i`.`id_grupo`, `a`.`id_alumno`, `a`.`nombre`, `a`.`apellidos`, `g`.`costo_cuota` ;
+=======
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_estatus_pago_alumnos`  AS SELECT `i`.`id_grupo` AS `id_grupo`, `a`.`id_alumno` AS `id_alumno`, `a`.`nombre` AS `nombre`, `a`.`apellidos` AS `apellidos`, (case when (ifnull(sum(`p`.`monto`),0) >= `g`.`costo_cuota`) then 'Solvente' else 'Pendiente' end) AS `estatus_pago` FROM (((`alumno` `a` join `inscripcion` `i` on(((`a`.`id_alumno` = `i`.`id_alumno`) and (`i`.`estado_inscripcion` = 'ACTIVA')))) join `grupo_taller` `g` on((`i`.`id_grupo` = `g`.`id_grupo`))) left join `pago` `p` on(((`a`.`id_alumno` = `p`.`id_alumno`) and (`g`.`id_grupo` = `p`.`id_grupo`)))) GROUP BY `i`.`id_grupo`, `a`.`id_alumno`, `a`.`nombre`, `a`.`apellidos`, `g`.`costo_cuota` ;
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 
 --
 -- Índices para tablas volcadas
@@ -342,7 +380,11 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `alumno`
 --
 ALTER TABLE `alumno`
+<<<<<<< HEAD
   MODIFY `id_alumno` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+=======
+  MODIFY `id_alumno` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 
 --
 -- AUTO_INCREMENT de la tabla `asistencia`
@@ -354,31 +396,46 @@ ALTER TABLE `asistencia`
 -- AUTO_INCREMENT de la tabla `grupo_taller`
 --
 ALTER TABLE `grupo_taller`
+<<<<<<< HEAD
   MODIFY `id_grupo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+=======
+  MODIFY `id_grupo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 
 --
 -- AUTO_INCREMENT de la tabla `inscripcion`
 --
 ALTER TABLE `inscripcion`
+<<<<<<< HEAD
   MODIFY `id_inscripcion` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+=======
+  MODIFY `id_inscripcion` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 
 --
 -- AUTO_INCREMENT de la tabla `instructor`
 --
 ALTER TABLE `instructor`
   MODIFY `id_instructor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+<<<<<<< HEAD
 
 --
 -- AUTO_INCREMENT de la tabla `log_acceso`
 --
 ALTER TABLE `log_acceso`
   MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+=======
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 
 --
 -- AUTO_INCREMENT de la tabla `pago`
 --
 ALTER TABLE `pago`
+<<<<<<< HEAD
   MODIFY `id_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+=======
+  MODIFY `id_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
