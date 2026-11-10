@@ -1,7 +1,12 @@
 <?php
+<<<<<<< HEAD
 // php/obtener_lista_asistencia.php
 header('Content-Type: application/json; charset=utf-8');
 require_once '../config/db.php'; // Conexión PDO centralizada
+=======
+header('Content-Type: application/json; charset=utf-8');
+require_once '../config/db.php'; // Conexión PDO[cite: 4]
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 
 $id_grupo = intval($_GET['id_grupo'] ?? 0);
 
