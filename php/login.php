@@ -98,4 +98,4 @@ try {
     echo json_encode(['status' => 'error', 'message' => 'Error en el servidor: ' . $e->getMessage()]);
     exit();
 }
-?>
+?> 
