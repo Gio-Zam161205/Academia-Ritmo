@@ -4,74 +4,148 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ritmo Docente - Pase de Lista</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="instructor-body">
 
+  <!-- Canvas ligero de partículas neón en segundo plano -->
+  <canvas id="instructorBgCanvas"></canvas>
+
+  <!-- Navbar mejorada -->
   <nav class="main-navbar">
     <div class="navbar-container">
-      <div class="brand-title">💃 Ritmo Docente</div>
-      <div class="user-badge">Prof. Carlos Mendoza</div>
+      <div class="brand-title">
+        <span class="brand-icon">💃</span> 
+        <div class="brand-text">
+          <span class="brand-name">Ritmo Docente</span>
+          <span class="brand-sub">Módulo de Asistencia</span>
+        </div>
+      </div>
+      
+      <div class="user-session-widget">
+        <div class="user-profile">
+          <div class="user-avatar">CM</div>
+          <div class="user-info">
+            <span class="user-name">Prof. Carlos Mendoza</span>
+            <span class="user-role">Docente Instructor</span>
+          </div>
+        </div>
+        <a href="php/logout.php" class="btn-logout" title="Cerrar sesión institucional">
+          <span>Cerrar Sesion</span> 🚪
+        </a>
+      </div>
     </div>
   </nav>
 
+  <!-- Panel principal del instructor -->
   <main class="cu01-main-container">
-    <div class="cu01-panel">
+    <div class="cu01-panel glass-card">
       
       <div class="cu01-header-filter">
-        <label class="field-label">Clase Asignada</label>
+        <label class="field-label" for="cu01-group-select">Clase Asignada</label>
         <select class="custom-select" id="cu01-group-select">
-          <option>Salsa Intermedio - Sala A (18:00 - 19:30)</option>
-          <option>Bachata Inicial - Sala B (19:30 - 21:00)</option>
+          <option value="1" selected>Salsa Intermedio - Sala A (18:00 - 19:30)</option>
+          <option value="2">Bachata Inicial - Sala B (19:30 - 21:00)</option>
+          <option value="3">Cumbia Avanzada - Sala C (21:00 - 22:30)</option>
         </select>
       </div>
 
       <div class="list-meta">
-        <span class="meta-title">Nómina del Grupo (18 Alumnos)</span>
-        <span class="meta-counter" id="cu01-counter">16 / 18 Presentes</span>
+        <span class="meta-title" id="meta-title">Nómina del Grupo (8 Alumnos)</span>
+        <span class="meta-counter" id="cu01-counter">0 / 8 Presentes</span>
       </div>
 
-      <div class="student-list">
-        <!-- Alumno 1 -->
-        <div class="student-card marked">
+      <div class="student-list" id="student-list">
+        <div class="student-card" data-id-alumno="101">
           <div>
             <div class="student-name">Juan Pérez Mendoza</div>
             <span class="pill pill-solvente">Solvente</span>
           </div>
-          <button class="cu01-switch active">
-            <span>✓</span> Presente
-          </button>
-        </div>
-
-        <!-- Alumno 2 -->
-        <div class="student-card">
-          <div>
-            <div class="student-name">María Gómez López</div>
-            <span class="pill pill-pendiente">Pendiente</span>
-          </div>
-          <button class="cu01-switch">
+          <button type="button" class="cu01-switch">
             <span>✕</span> Falta
           </button>
         </div>
 
-        <!-- Alumno 3 -->
-        <div class="student-card marked">
+        <div class="student-card" data-id-alumno="102">
+          <div>
+            <div class="student-name">María Gómez López</div>
+            <span class="pill pill-pendiente">Pendiente</span>
+          </div>
+          <button type="button" class="cu01-switch">
+            <span>✕</span> Falta
+          </button>
+        </div>
+
+        <div class="student-card" data-id-alumno="103">
           <div>
             <div class="student-name">Roberto Díaz Ruiz</div>
             <span class="pill pill-solvente">Solvente</span>
           </div>
-          <button class="cu01-switch active">
-            <span>✓</span> Presente
+          <button type="button" class="cu01-switch">
+            <span>✕</span> Falta
+          </button>
+        </div>
+
+        <div class="student-card" data-id-alumno="104">
+          <div>
+            <div class="student-name">Ana Sofía Torres</div>
+            <span class="pill pill-solvente">Solvente</span>
+          </div>
+          <button type="button" class="cu01-switch">
+            <span>✕</span> Falta
+          </button>
+        </div>
+
+        <div class="student-card" data-id-alumno="105">
+          <div>
+            <div class="student-name">Carlos Eduardo Ramírez</div>
+            <span class="pill pill-solvente">Solvente</span>
+          </div>
+          <button type="button" class="cu01-switch">
+            <span>✕</span> Falta
+          </button>
+        </div>
+
+        <div class="student-card" data-id-alumno="106">
+          <div>
+            <div class="student-name">Daniela Morales Castro</div>
+            <span class="pill pill-pendiente">Pendiente</span>
+          </div>
+          <button type="button" class="cu01-switch">
+            <span>✕</span> Falta
+          </button>
+        </div>
+
+        <div class="student-card" data-id-alumno="107">
+          <div>
+            <div class="student-name">Fernando Javier Ortiz</div>
+            <span class="pill pill-solvente">Solvente</span>
+          </div>
+          <button type="button" class="cu01-switch">
+            <span>✕</span> Falta
+          </button>
+        </div>
+
+        <div class="student-card" data-id-alumno="108">
+          <div>
+            <div class="student-name">Gabriela Méndez Silva</div>
+            <span class="pill pill-solvente">Solvente</span>
+          </div>
+          <button type="button" class="cu01-switch">
+            <span>✕</span> Falta
           </button>
         </div>
       </div>
 
       <div class="alert-banner">
-        <strong>⚠️ ¿Alumno no registrado?</strong><br>
-        Solicitarle pasar a recepción para regularizar su matrícula antes de ingresar al salón de baile.
+        <strong>⚠️ ¿Alumno no registrado en la lista?</strong><br>
+        Solicitarle pasar a recepción para regularizar su matrícula e inscripción antes de ingresar a la clase.
       </div>
 
-      <button class="btn-primary-action" id="cu01-sync-btn">
+      <button type="button" class="btn-primary-action" id="cu01-sync-btn">
         Finalizar y Sincronizar Asistencias ➔
       </button>
 
@@ -80,15 +154,16 @@
 
   <div class="modal-overlay" id="cu01-modal">
     <div class="modal-card">
-      <div style="font-size:42px; color:var(--success); margin-bottom:12px;">✓</div>
-      <h3 style="font-size:20px; font-weight:800; margin-bottom:8px;">¡Asistencia Sincronizada!</h3>
-      <p style="font-size:14px; color:var(--slate-600); line-height:1.5;">
-        Los 18 registros de asistencia han sido guardados en la base de datos central.<br>Recepción ya visualiza la concurrencia en tiempo real.
+      <div class="modal-icon">✓</div>
+      <h3 class="modal-title">¡Asistencia Sincronizada!</h3>
+      <p class="modal-desc">
+        Los registros han sido enviados correctamente a la base de datos.<br>
+        Recepción ya visualiza la asistencia en tiempo real.
       </p>
-      <button class="modal-btn" id="cu01-modal-close">Aceptar</button>
+      <button type="button" class="modal-btn" id="cu01-modal-close">Aceptar</button>
     </div>
   </div>
 
-  <script src="JS/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
