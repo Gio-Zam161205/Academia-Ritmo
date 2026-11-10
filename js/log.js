@@ -1,11 +1,15 @@
+/* ==========================================================================
+   ACADEMIA RITMO - LOGICA TI LOGIN (js/log.js)
+   ========================================================================== */
+
 document.addEventListener('DOMContentLoaded', () => {
-  // Manejo ti formulario ken interactividad
   const loginForm = document.getElementById('loginForm');
   const usernameInput = document.getElementById('username');
   const passwordInput = document.getElementById('password');
   const togglePasswordBtn = document.getElementById('togglePasswordBtn');
   const alertBox = document.getElementById('alertBox');
   const btnRegister = document.getElementById('btnRegister');
+  const submitBtn = document.getElementById('submitBtn');
 
   if (togglePasswordBtn && passwordInput) {
     togglePasswordBtn.addEventListener('click', () => {
@@ -24,22 +28,28 @@ document.addEventListener('DOMContentLoaded', () => {
   if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const user = usernameInput.value.trim();
-      const pass = passwordInput.value.trim();
+      const user = usernameInput ? usernameInput.value.trim() : '';
+      const pass = passwordInput ? passwordInput.value.trim() : '';
 
       if (!user || !pass) {
-        alertBox.textContent = 'Por favor, ingresa tu usuario y contraseña.';
-        alertBox.className = 'alert-box error';
-        alertBox.style.display = 'block';
+        if (alertBox) {
+          alertBox.textContent = 'Por favor, ingresa tu usuario y contraseña.';
+          alertBox.className = 'alert-box error';
+          alertBox.style.display = 'block';
+        }
         return;
       }
 
-      alertBox.textContent = 'Iniciando sesión...';
-      alertBox.className = 'alert-box success';
-      alertBox.style.display = 'block';
+      if (alertBox) {
+        alertBox.textContent = 'Iniciando sesión...';
+        alertBox.className = 'alert-box success';
+        alertBox.style.display = 'block';
+      }
+
+      if (submitBtn) submitBtn.disabled = true;
 
       const formData = new FormData();
-      formData.append('username', user);
+      formData.append('correo', user);
       formData.append('password', pass);
 
       try {
@@ -47,26 +57,52 @@ document.addEventListener('DOMContentLoaded', () => {
           method: 'POST',
           body: formData
         });
+
         const result = await response.json();
 
         if (result.status === 'success') {
-          alertBox.textContent = result.message;
-          alertBox.className = 'alert-box success';
+          if (alertBox) {
+            alertBox.textContent = result.message || '¡Inicio de sesión exitoso!';
+            alertBox.className = 'alert-box success';
+          }
+
+          // RUTEADOR TI PAGINA BASE ITI ROL TI BACKEND
+          let paginaDestino = 'index.html'; // Default para RECEPCIONISTA
+          const rol = (result.rol || '').toUpperCase();
+
+          if (rol === 'ADMIN') {
+            paginaDestino = 'admin.html';
+          } else if (rol === 'INSTRUCTOR' || rol === 'DOCENTE') {
+            paginaDestino = 'instructor.html';
+          } else if (rol === 'RECEPCIONISTA') {
+            paginaDestino = 'index.html';
+          } else if (result.redirect) {
+            paginaDestino = result.redirect;
+          }
+
           setTimeout(() => {
-            window.location.href = result.redirect;
-          }, 1000);
+            window.location.href = paginaDestino;
+          }, 800);
+
         } else {
-          alertBox.textContent = result.message || 'Usuario o contraseña incorrectos.';
-          alertBox.className = 'alert-box error';
+          if (alertBox) {
+            alertBox.textContent = result.message || 'Usuario o contraseña incorrectos.';
+            alertBox.className = 'alert-box error';
+          }
+          if (submitBtn) submitBtn.disabled = false;
         }
       } catch (error) {
-        alertBox.textContent = 'Error al conectar con el servidor backend.';
-        alertBox.className = 'alert-box error';
+        console.error('Error ti login:', error);
+        if (alertBox) {
+          alertBox.textContent = 'Error al conectar con el servidor backend.';
+          alertBox.className = 'alert-box error';
+        }
+        if (submitBtn) submitBtn.disabled = false;
       }
     });
   }
 
-  // --- ANIMACIÓN TI BACKGROUND CANVAS NGA ADDAAN TI IMAGEN ---
+  // --- ANIMACIÓN TI BACKGROUND CANVAS ---
   const canvas = document.getElementById('bgCanvas');
   if (!canvas) return;
 
@@ -74,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let width, height;
   let time = 0;
 
-  // Cargar ti fondo.jpeg manipud ti folder nga img/
   const coupleImg = new Image();
   coupleImg.src = 'img/fondo.png'; 
 
@@ -85,7 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', resize);
   resize();
 
-  // Partículas ti background
   const particles = Array.from({ length: 45 }, () => ({
     x: Math.random() * width,
     y: Math.random() * height,
@@ -116,7 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.translate(centerX + sway, centerY + bounce);
     ctx.scale(finalScale, finalScale);
 
-    // Anillos neón ti floor
     ctx.strokeStyle = c.glow;
     ctx.lineWidth = 2;
     ctx.globalAlpha = 0.3;
@@ -127,15 +160,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     ctx.globalAlpha = 1.0;
 
-    // Effect Neon Glow
     ctx.shadowBlur = c.shadowBlur;
     ctx.shadowColor = c.glow;
 
     if (coupleImg.complete && coupleImg.naturalWidth !== 0) {
-      // No nakaukit ken nakaload ti img/fondo.jpeg
       ctx.drawImage(coupleImg, -coupleImg.width / 2, -coupleImg.height / 2);
     } else {
-      // Fallback silhouette no adda delay ti panag-load ti fondo.jpeg
       ctx.fillStyle = c.glow;
       ctx.beginPath();
       ctx.arc(0, 0, 40, 0, Math.PI * 2);
@@ -151,7 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     time += 1;
 
-    // Drawing ti partículas
     particles.forEach(p => {
       p.x += p.speedX;
       p.y += p.speedY;
@@ -166,7 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.fill();
     });
 
-    // Drawing ti silhouettes / imagen
     couples.forEach(c => {
       const coupleAngle = time * c.speed;
       drawCouple(c, coupleAngle);
@@ -175,14 +203,10 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(animate);
   }
 
-  // Punganayen ti animación
   if (coupleImg.complete) {
     animate();
   } else {
     coupleImg.onload = animate;
-    coupleImg.onerror = () => {
-      // Ag-animate uray no adda error ti path tapno saan nga ag-freeze ti canvas
-      animate();
-    };
+    coupleImg.onerror = () => { animate(); };
   }
 });
