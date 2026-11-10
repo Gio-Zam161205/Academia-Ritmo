@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> d2a2b8e451c4f42fd184ebeabe6dbb4f0445b03d
+>>>>>>> ea5cd51dde0c32d7e7098f31b7880451a8c3ef9d
+>>>>>>> 98bbc6150e01110494e4aa87ea4db583b0a4a24e
 <?php
 header('Content-Type: application/json; charset=utf-8');
 require_once '../config/db.php'; // Conexión PDO centralizada
