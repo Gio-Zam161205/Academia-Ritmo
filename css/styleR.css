@@ -1,0 +1,548 @@
+/* ==========================================================================
+   ACADEMIA RITMO - ESTILOS MÓDULO RECEPCIÓN (CU-02) Y NAVBAR NEÓN
+   ========================================================================== */
+
+:root {
+  --primary: #a855f7;
+  --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  --bg-dark: #0c0a18;
+  --card-bg: rgba(18, 15, 36, 0.82);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --success: #22c55e;
+  --success-bg: rgba(34, 197, 94, 0.15);
+  --warning: #f59e0b;
+  --warning-bg: rgba(245, 158, 11, 0.15);
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.18);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* FIX DE DESPLAZAMIENTO: Fijar el alto al marco visible de la pantalla */
+html, body.desk-body, body.instructor-body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden; /* Evita que la ventana completa genere scroll */
+}
+
+/* CANVAS DE PARTÍCULAS AL FONDO */
+#instructorBgCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   NAVBAR NEÓN INSTITUCIONAL Y CERRAR SESIÓN
+   ========================================================================== */
+.desk-navbar, .main-navbar {
+  position: relative;
+  z-index: 10;
+  background: rgba(12, 10, 24, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 16px 28px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0; /* Evita que la barra superior cambie su tamaño */
+}
+
+.navbar-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-icon-wrapper {
+  background: var(--primary-gradient);
+  padding: 10px;
+  border-radius: 14px;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-size: 19px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.4px;
+}
+
+.brand-sub {
+  font-size: 11px;
+  font-weight: 600;
+  color: #c084fc;
+  letter-spacing: 0.3px;
+}
+
+/* WIDGET DE USUARIO Y BOTÓN SALIR */
+.user-session-widget {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 14px 6px 6px;
+  border-radius: 30px;
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--primary-gradient);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.user-role {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.btn-logout {
+  color: #fca5a5;
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 700;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  padding: 8px 16px;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-logout:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.6);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+  transform: translateY(-1px);
+  color: #ffffff;
+}
+
+/* PESTAÑAS DE NAVEGACIÓN */
+.nav-tabs-container {
+  max-width: 1100px;
+  margin: 14px auto 0 auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 12px;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-tab {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-tab:hover {
+  background: rgba(168, 85, 247, 0.15);
+  color: #ffffff;
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+.btn-tab.active {
+  background: var(--primary-gradient);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 18px rgba(168, 85, 247, 0.45);
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.35s ease;
+}
+
+.tab-content.active-tab {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   PANEL CENTRAL Y TARJETAS GLASSMORPHISM
+   ========================================================================== */
+/* FIX DE DESPLAZAMIENTO: Scroll exclusivo para la zona de contenido */
+.cu02-main-container {
+  position: relative;
+  z-index: 5;
+  flex: 1; 
+  overflow-y: auto; /* Permite scroll vertical únicamente si las tarjetas sobrepasan el espacio disponible */
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 28px 20px;
+}
+
+.panel-header-title {
+  margin-bottom: 24px;
+}
+
+.panel-header-title h1 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.panel-header-title p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.glass-card, .desk-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--card-border);
+}
+
+.card-title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.card-title-bar h3, .desk-card h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.status-live {
+  font-size: 11px;
+  font-weight: 800;
+  color: #86efac;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+/* TABLA DE AFOROS */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.desk-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.desk-table th {
+  font-size: 11px;
+  font-weight: 800;
+  color: #c084fc;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.desk-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 14px;
+}
+
+.class-name { color: #ffffff; font-size: 15px; }
+.class-sub { color: var(--text-muted); font-size: 12px; }
+
+.seats-free.primary { color: #c084fc; }
+.seats-free.danger { color: #fca5a5; }
+
+.pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 8px;
+}
+
+.pill-solvente {
+  background-color: var(--success-bg);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #86efac;
+}
+
+.pill-lleno {
+  background-color: var(--danger-bg);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+.progress-info {
+  font-size: 12px;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-bottom: 6px;
+}
+
+.progress-track {
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.progress-bar-indigo {
+  background: var(--primary-gradient);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+.progress-bar-red {
+  background: linear-gradient(90deg, #ef4444, #f43f5e);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+/* FORMULARIOS Y ALERTAS */
+.form-group {
+  margin-top: 16px;
+}
+
+.field-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  color: #c084fc;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.form-control-readonly {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.custom-select-desk {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.05);
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.custom-select-desk option {
+  background-color: #120f24;
+  color: #ffffff;
+}
+
+.payment-box {
+  background: rgba(168, 85, 247, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  margin-top: 15px;
+}
+
+.alert-danger-desk {
+  display: none;
+  background-color: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 18px 0;
+}
+
+.alert-danger-desk.visible {
+  display: block;
+}
+
+.btn-desk-action {
+  width: 100%;
+  padding: 13px;
+  background: var(--primary-gradient);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.35);
+  transition: all 0.2s ease;
+}
+
+.btn-desk-action.disabled {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: var(--text-muted) !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+
+/* TOAST NOTIFICACIÓN */
+.toast-msg {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: rgba(18, 15, 36, 0.95);
+  border: 1px solid var(--primary);
+  color: #ffffff;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+  display: none;
+  z-index: 100;
+}
+
+.toast-msg.active {
+  display: block;
+}
+
+/* ==========================================================================
+   PERSONALIZACIÓN DE LA BARRA DE DESPLAZAMIENTO (SCROLLBAR NEÓN DARK)
+   ========================================================================== */
+
+/* Ancho general de la barra de scroll */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Fondo del carril de desplazamiento */
+::-webkit-scrollbar-track {
+  background: #0c0a18;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Indicador desplazable (Thumb) */
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.3);
+  border-radius: 10px;
+  border: 2px solid #0c0a18;
+  transition: background 0.3s ease;
+}
+
+/* Efecto Hover sobre la barra */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary); /* #a855f7 con el color morado neón */
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+}
+
+/* Compatibilidad para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(168, 85, 247, 0.4) #0c0a18;
+}
