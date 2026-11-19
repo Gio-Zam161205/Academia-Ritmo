@@ -1,58 +1,60 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-
 :root {
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
-  --primary-light: #e0e7ff;
-  --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-  --success: #10b981;
-  --success-bg: #d1fae5;
+  --primary: #a855f7;
+  --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  --bg-dark: #0c0a18;
+  --card-bg: rgba(18, 15, 36, 0.82);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --success: #22c55e;
+  --success-bg: rgba(34, 197, 94, 0.15);
   --warning: #f59e0b;
-  --warning-bg: #fef3c7;
-  --danger: #ef4444;
-  --danger-bg: #fee2e2;
-  --slate-900: #0f172a;
-  --slate-800: #1e293b;
-  --slate-600: #475569;
-  --slate-400: #94a3b8;
-  --slate-200: #cbd5e1;
-  --slate-100: #f8fafc;
-  --white: #ffffff;
+  --warning-bg: rgba(245, 158, 11, 0.15);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --radius-md: 12px;
+  --radius-lg: 20px;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-html, body {
-  width: 100%;
+body.instructor-body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
   min-height: 100vh;
-  background-color: #f1f5f9;
-  color: var(--slate-900);
-}
-
-body {
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* ==========================================================================
-   BARRA INSTITUCIONAL SUPERIOR (Docente y Recepción)
-   ========================================================================== */
+/* CANVAS DE PARTÍCULAS AL FONDO */
+#instructorBgCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* NAVBAR MEJORADA */
 .main-navbar {
-  background: var(--primary-gradient);
-  color: var(--white);
-  padding: 20px 36px;
-  box-shadow: 0 4px 18px rgba(79, 70, 229, 0.25);
-  width: 100%;
+  position: relative;
+  z-index: 10;
+  background: rgba(12, 10, 24, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--card-border);
+  padding: 12px 24px;
 }
 
 .navbar-container {
-  width: 100%;
-  max-width: 1350px;
+  max-width: 720px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -60,435 +62,396 @@ body {
 }
 
 .brand-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
   font-size: 22px;
+  background: var(--primary-gradient);
+  padding: 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-size: 17px;
   font-weight: 800;
+  color: #ffffff;
   letter-spacing: -0.3px;
 }
 
-.user-badge {
-  font-size: 14px;
-  background: rgba(255, 255, 255, 0.22);
-  padding: 8px 18px;
-  border-radius: 20px;
+.brand-sub {
+  font-size: 11px;
   font-weight: 600;
+  color: #c084fc;
 }
 
-/* ==========================================================================
-   CU-01: DOCENTE (RESPONSIVO LAPTOP / TELÉFONO)
-   ========================================================================== */
+/* WIDGET DE USUARIO */
+.user-session-widget {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 5px 12px 5px 6px;
+  border-radius: 30px;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--primary-gradient);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.user-role {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.btn-logout {
+  color: #fca5a5;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 7px 14px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-logout:hover {
+  background: rgba(239, 68, 68, 0.3);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+  transform: translateY(-1px);
+}
+
+/* PANEL PRINCIPAL */
 .cu01-main-container {
-  width: 100%;
-  max-width: 780px; /* Ancho optimizado en PC */
-  margin: 32px auto;
-  padding: 0 20px;
+  position: relative;
+  z-index: 5;
   flex: 1;
+  padding: 24px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-.cu01-panel {
-  background: var(--white);
-  border-radius: 22px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-  border: 1.5px solid var(--slate-200);
-  padding: 32px;
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  width: 100%;
+  max-width: 680px;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--card-border);
 }
 
+/* COMBOBOX DE CLASE */
 .cu01-header-filter {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .field-label {
   display: block;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 800;
+  color: #c084fc;
   text-transform: uppercase;
-  color: var(--slate-600);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   margin-bottom: 8px;
 }
 
 .custom-select {
   width: 100%;
-  border: 2px solid var(--slate-200);
-  background: var(--white);
-  padding: 14px 16px;
-  border-radius: 12px;
-  font-size: 15px;
+  padding: 12px 14px;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  font-size: 14px;
   font-weight: 600;
-  color: var(--slate-900);
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.05);
   outline: none;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
+.custom-select option {
+  background-color: #120f24;
+  color: #ffffff;
+}
+
+.custom-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.25);
+}
+
+/* NÓMINA Y CONTADOR */
 .list-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
   padding-bottom: 12px;
-  border-bottom: 1.5px solid var(--slate-200);
+  margin-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .meta-title {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--slate-700);
-  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
 }
 
 .meta-counter {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--primary);
-  background: var(--primary-light);
-  padding: 6px 16px;
-  border-radius: 20px;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #e9d5ff;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
 }
 
+/* LISTA DE ALUMNOS CON SCROLL INTERNO */
 .student-list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-bottom: 24px;
+  gap: 10px;
+  margin-bottom: 20px;
+  max-height: 350px;
+  overflow-y: auto;
+  padding-right: 6px;
 }
 
+.student-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.student-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.student-list::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.4);
+  border-radius: 10px;
+}
+
+.student-list::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* TARJETAS DE ALUMNOS */
 .student-card {
-  background: var(--white);
-  border-radius: 16px;
-  padding: 18px 22px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 2px solid var(--slate-200);
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.03);
   transition: all 0.2s ease;
 }
 
 .student-card.marked {
-  border-color: var(--primary);
-  background: #f5f3ff;
+  border-color: rgba(168, 85, 247, 0.5);
+  background: rgba(168, 85, 247, 0.08);
+  box-shadow: inset 0 0 12px rgba(168, 85, 247, 0.1);
 }
 
 .student-name {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--slate-900);
-  margin-bottom: 6px;
+  color: #ffffff;
+  margin-bottom: 4px;
 }
 
+/* INSIGNIAS / PILLS */
 .pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
+  display: inline-block;
+  font-size: 11px;
   font-weight: 700;
-  padding: 4px 10px;
+  padding: 2px 8px;
   border-radius: 6px;
 }
 
-.pill-solvente { background: var(--success-bg); color: #065f46; }
-.pill-solvente::before { content: "●"; font-size: 9px; }
+.pill-solvente {
+  background-color: var(--success-bg);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #86efac;
+}
 
-.pill-pendiente { background: var(--warning-bg); color: #92400e; }
-.pill-pendiente::before { content: "●"; font-size: 9px; }
+.pill-pendiente {
+  background-color: var(--warning-bg);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #fde047;
+}
 
+/* BOTÓN DE ASISTENCIA */
 .cu01-switch {
-  background: var(--slate-200);
-  color: var(--slate-700);
-  border: none;
-  border-radius: 24px;
-  padding: 12px 24px;
-  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 13px;
   font-weight: 700;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
-  transition: all 0.2s;
+  gap: 6px;
+  transition: all 0.2s ease;
 }
 
 .cu01-switch.active {
-  background: var(--primary);
-  color: var(--white);
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+  background: var(--primary-gradient);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
 }
 
+.cu01-switch:hover {
+  transform: translateY(-1px);
+}
+
+/* ALERTA Y ACCIÓN */
 .alert-banner {
-  background: #fffbeb;
-  border-left: 5px solid var(--warning);
-  border-radius: 12px;
-  padding: 16px 20px;
-  font-size: 14px;
-  color: #92400e;
-  line-height: 1.5;
-  margin-bottom: 24px;
+  background-color: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #fef08a;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 20px;
 }
 
 .btn-primary-action {
   width: 100%;
-  background: var(--primary);
-  color: var(--white);
+  padding: 13px;
+  background: var(--primary-gradient);
+  color: #ffffff;
   border: none;
-  border-radius: 14px;
-  padding: 16px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 5px 18px rgba(79, 70, 229, 0.3);
-  transition: background 0.2s;
-}
-.btn-primary-action:hover { background: var(--primary-hover); }
-
-/* ==========================================================================
-   CU-02: RECEPCIÓN (PANEL CORPORATIVO AMPLIO Y LEGIBLE)
-   ========================================================================== */
-.cu02-main-container {
-  width: 100%;
-  max-width: 1350px;
-  margin: 36px auto;
-  padding: 0 32px;
-  flex: 1;
-}
-
-.panel-header-title {
-  margin-bottom: 28px;
-}
-
-.panel-header-title h1 {
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--slate-900);
-  margin-bottom: 6px;
-}
-
-.panel-header-title p {
-  font-size: 16px;
-  color: var(--slate-600);
-}
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  gap: 32px;
-  align-items: stretch;
-}
-
-.desk-card {
-  background: var(--white);
-  border-radius: 22px;
-  border: 1.5px solid var(--slate-200);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.04);
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-}
-
-.desk-card h3 {
-  font-size: 20px;
-  font-weight: 800;
-  margin-bottom: 22px;
-  color: var(--slate-900);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.desk-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.desk-table th {
-  text-align: left;
-  padding: 16px 18px;
-  background: #f8fafc;
-  color: var(--slate-600);
-  font-size: 13px;
-  font-weight: 700;
-  border-bottom: 2px solid var(--slate-200);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.desk-table td {
-  padding: 20px 18px;
-  border-bottom: 1.5px solid var(--slate-200);
-  font-size: 16px;
-}
-
-.progress-track {
-  width: 100%;
-  height: 10px;
-  background: var(--slate-200);
-  border-radius: 6px;
-  overflow: hidden;
-  margin-top: 10px;
-}
-.progress-bar-indigo { height: 100%; background: var(--primary); width: 90%; }
-.progress-bar-red { height: 100%; background: var(--danger); width: 100%; }
-
-.form-group {
-  margin-bottom: 22px;
-}
-
-.form-group label {
-  display: block;
+  border-radius: var(--radius-md);
   font-size: 14px;
   font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--slate-800);
-}
-
-.form-group input, .form-group select {
-  width: 100%;
-  border: 2px solid var(--slate-200);
-  border-radius: 12px;
-  padding: 15px 18px;
-  font-size: 15px;
-  outline: none;
-  background: var(--white);
-  color: var(--slate-900);
-  transition: border-color 0.2s;
-}
-.form-group input:focus, .form-group select:focus {
-  border-color: var(--primary);
-}
-
-.alert-danger {
-  background: var(--danger-bg);
-  border: 1.5px solid #fca5a5;
-  border-radius: 12px;
-  padding: 18px;
-  margin-bottom: 22px;
-  display: none;
-}
-.alert-danger.visible { display: block; }
-.alert-danger strong { color: #991b1b; display: block; margin-bottom: 4px; font-size: 15px; }
-.alert-danger p { font-size: 13px; color: #7f1d1d; line-height: 1.45; }
-
-.btn-desk-action {
-  width: 100%;
-  background: var(--primary);
-  color: var(--white);
-  border: none;
-  border-radius: 14px;
-  padding: 16px;
-  font-size: 16px;
-  font-weight: 700;
   cursor: pointer;
-  margin-top: auto;
-  transition: background 0.2s;
-}
-.btn-desk-action:hover { background: var(--primary-hover); }
-
-.btn-desk-action.disabled {
-  background: var(--slate-200);
-  color: var(--slate-400);
-  cursor: not-allowed;
+  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.35);
+  transition: all 0.2s ease;
 }
 
-/* Modales y Notificaciones */
+.btn-primary-action:hover {
+  box-shadow: 0 10px 25px rgba(168, 85, 247, 0.5);
+  transform: translateY(-1px);
+}
+
+/* MODAL DE CONFIRMACIÓN TRASLÚCIDO */
 .modal-overlay {
   position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(5px);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 8, 20, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: none;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  z-index: 1000;
+  z-index: 100;
 }
-.modal-overlay.active { display: flex; }
+
+.modal-overlay.active {
+  display: flex !important;
+}
 
 .modal-card {
-  background: var(--white);
-  border-radius: 24px;
-  padding: 32px;
-  max-width: 440px;
-  width: 100%;
+  background: rgba(18, 15, 36, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  max-width: 380px;
+  width: 90%;
   text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+.modal-icon {
+  font-size: 42px;
+  color: var(--success);
+  margin-bottom: 12px;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.modal-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
 }
 
 .modal-btn {
+  margin-top: 18px;
   width: 100%;
-  background: var(--slate-900);
-  color: var(--white);
+  padding: 11px;
+  background: var(--primary-gradient);
+  color: #ffffff;
   border: none;
-  border-radius: 12px;
-  padding: 14px;
-  font-size: 15px;
+  border-radius: 10px;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 18px;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
 }
 
-.toast-msg {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  background: var(--slate-900);
-  color: var(--white);
-  padding: 16px 24px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 600;
-  display: none;
-  border-left: 5px solid var(--success);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.18);
-}
-.toast-msg.show { display: block; }
 
-/* ==========================================================================
-   REGLAS RESPONSIVAS ESTRICTAS PARA MÓVIL (<= 768px)
-   ========================================================================== */
-@media (max-width: 768px) {
-  .main-navbar {
-    padding: 14px 16px;
-  }
-  .brand-title {
-    font-size: 18px;
-  }
-  .user-badge {
-    font-size: 12px;
-    padding: 6px 12px;
-  }
-  .cu01-main-container {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    max-width: 100%;
-  }
-  .cu01-panel {
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
-    padding: 18px 16px;
-    min-height: calc(100vh - 65px);
-    display: flex;
-    flex-direction: column;
-  }
-  .student-card {
-    padding: 14px 16px;
-  }
-  .student-name {
-    font-size: 15px;
-  }
-  .cu01-switch {
-    padding: 10px 18px;
-    font-size: 13px;
-  }
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .cu02-main-container {
-    padding: 16px;
-    margin: 10px auto;
-  }
-  .desk-card {
-    padding: 20px;
-    border-radius: 16px;
-  }
-  .btn-primary-action {
-    margin-top: auto;
-  }
-}
+
+
+
+
+
+
+
