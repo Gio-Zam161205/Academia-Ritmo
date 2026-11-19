@@ -1,3 +1,7 @@
+/* ==========================================================================
+   ACADEMIA RITMO - LÓGICA DE REGISTRO DE USUARIOS (js/register.js)
+   ========================================================================== */
+
 document.addEventListener('DOMContentLoaded', () => {
   const registerForm = document.getElementById('registerForm');
   const alertBox = document.getElementById('alertBox');
@@ -7,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitBtn = document.getElementById('submitBtn');
   const spinner = submitBtn ? submitBtn.querySelector('.spinner') : null;
 
-  // Toggle ti password visibility
+  let isSubmitting = false;
+
+  // 1. Alternar visibilidad de contraseñas
   if (togglePasswordBtn && passwordInput) {
     togglePasswordBtn.addEventListener('click', () => {
       const isPassword = passwordInput.type === 'password';
@@ -19,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // 2. Funciones auxiliares para alertas
   function showAlert(message, type = 'error') {
     if (!alertBox) return;
     alertBox.textContent = message;
@@ -30,20 +37,44 @@ document.addEventListener('DOMContentLoaded', () => {
     if (alertBox) alertBox.style.display = 'none';
   }
 
-  // Petición ti backend PHP
+  function setLoadingState(loading) {
+    isSubmitting = loading;
+    if (submitBtn) submitBtn.disabled = loading;
+    if (spinner) spinner.style.display = loading ? 'inline-block' : 'none';
+  }
+
+  // 3. Envío del formulario al backend PHP
   if (registerForm) {
     registerForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (isSubmitting) return;
       hideAlert();
 
-      const fullname = document.getElementById('fullname').value.trim();
-      const username = document.getElementById('username').value.trim();
-      const role = document.getElementById('role').value;
-      const password = passwordInput.value;
+      const fullnameInput = document.getElementById('fullname');
+      const usernameInput = document.getElementById('username');
+      const roleSelect = document.getElementById('role');
+
+      const fullname = fullnameInput ? fullnameInput.value.trim() : '';
+      const username = usernameInput ? usernameInput.value.trim() : '';
+      const role = roleSelect ? roleSelect.value.trim().toUpperCase() : '';
+      const password = passwordInput ? passwordInput.value : '';
       const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : '';
 
+      // Validaciones de campos
       if (!fullname || !username || !role || !password || !confirmPassword) {
         showAlert('Por favor, completa todos los campos del formulario.', 'error');
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(username)) {
+        showAlert('Por favor, ingresa un correo electrónico válido.', 'error');
+        return;
+      }
+
+      const rolesPermitidos = ['INSTRUCTOR', 'RECEPCIONISTA', 'ADMIN'];
+      if (!rolesPermitidos.includes(role)) {
+        showAlert('Por favor, selecciona un rol válido.', 'error');
         return;
       }
 
@@ -57,13 +88,16 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      submitBtn.disabled = true;
-      if (spinner) spinner.style.display = 'inline-block';
+      setLoadingState(true);
 
+      // Enviar nombres en ambos formatos para garantizar compatibilidad con register.php
       const formData = new FormData();
       formData.append('fullname', fullname);
+      formData.append('nombre_completo', fullname);
       formData.append('username', username);
+      formData.append('correo', username);
       formData.append('role', role);
+      formData.append('rol', role);
       formData.append('password', password);
 
       try {
@@ -72,33 +106,40 @@ document.addEventListener('DOMContentLoaded', () => {
           body: formData
         });
 
+        // Permitir leer el JSON incluso en errores 400 (validación de backend)
+        if (!response.ok && response.status !== 400) {
+          throw new Error(`Error HTTP ${response.status} en el servidor.`);
+        }
+
         const result = await response.json();
 
         if (result.status === 'success') {
-          showAlert(result.message, 'success');
+          showAlert(result.message || '¡Registro exitoso! Redirigiendo al login...', 'success');
           setTimeout(() => {
             window.location.href = 'log.html';
           }, 1500);
         } else {
           showAlert(result.message || 'Error al registrar el usuario.', 'error');
-          submitBtn.disabled = false;
-          if (spinner) spinner.style.display = 'none';
+          setLoadingState(false);
         }
       } catch (error) {
+        console.error('Error en registro:', error);
         showAlert('Error al conectar con el servidor backend.', 'error');
-        submitBtn.disabled = false;
-        if (spinner) spinner.style.display = 'none';
+        setLoadingState(false);
       }
     });
   }
 
-  // --- ANIMACIÓN TI BACKGROUND CANVAS (FONDO.JPEG) ---
+  // --- ANIMACIÓN DE BACKGROUND CANVAS (FONDO NEÓN) ---
   const canvas = document.getElementById('bgCanvas');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
   let width, height;
   let time = 0;
+  let animationFrameId = null;
 
   const coupleImg = new Image();
   coupleImg.src = 'img/fondo.png';
@@ -171,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     time += 1;
 
-    particles.forEach(p => {
+    particles.forEach((p) => {
       p.x += p.speedX;
       p.y += p.speedY;
       if (p.x < 0) p.x = width;
@@ -185,18 +226,30 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.fill();
     });
 
-    couples.forEach(c => {
+    couples.forEach((c) => {
       const coupleAngle = time * c.speed;
       drawCouple(c, coupleAngle);
     });
 
-    requestAnimationFrame(animate);
+    animationFrameId = requestAnimationFrame(animate);
   }
+
+  // Pausar animación si el usuario cambia de pestaña
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    } else if (!document.hidden && !animationFrameId) {
+      animate();
+    }
+  });
 
   if (coupleImg.complete) {
     animate();
   } else {
     coupleImg.onload = animate;
-    coupleImg.onerror = () => { animate(); };
+    coupleImg.onerror = () => {
+      animate();
+    };
   }
 });
