@@ -1,12 +1,27 @@
+/* ==========================================================================
+   ACADEMIA RITMO - LÓGICA DE INICIO DE SESIÓN (js/log.js)
+   ========================================================================== */
+
 document.addEventListener('DOMContentLoaded', () => {
-  // Manejo ti formulario ken interactividad
   const loginForm = document.getElementById('loginForm');
   const usernameInput = document.getElementById('username');
   const passwordInput = document.getElementById('password');
   const togglePasswordBtn = document.getElementById('togglePasswordBtn');
   const alertBox = document.getElementById('alertBox');
   const btnRegister = document.getElementById('btnRegister');
+  const submitBtn = document.getElementById('submitBtn');
 
+  let isSubmitting = false;
+
+  // Función auxiliar para mostrar alertas
+  function mostrarAlerta(mensaje, tipo = 'error') {
+    if (!alertBox) return;
+    alertBox.textContent = mensaje;
+    alertBox.className = `alert-box ${tipo}`;
+    alertBox.style.display = 'block';
+  }
+
+  // 1. Alternar visibilidad de contraseña
   if (togglePasswordBtn && passwordInput) {
     togglePasswordBtn.addEventListener('click', () => {
       const isPassword = passwordInput.getAttribute('type') === 'password';
@@ -15,31 +30,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // 2. Redirección a pantalla de registro
   if (btnRegister) {
     btnRegister.addEventListener('click', () => {
-      window.location.href = 'register.html';
+      window.location.href = 'registrer.html';
     });
   }
 
+  // 3. Envío de formulario de inicio de sesión
   if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const user = usernameInput.value.trim();
-      const pass = passwordInput.value.trim();
+      if (isSubmitting) return;
+
+      const user = usernameInput ? usernameInput.value.trim() : '';
+      const pass = passwordInput ? passwordInput.value.trim() : '';
 
       if (!user || !pass) {
-        alertBox.textContent = 'Por favor, ingresa tu usuario y contraseña.';
-        alertBox.className = 'alert-box error';
-        alertBox.style.display = 'block';
+        mostrarAlerta('Por favor, ingresa tu usuario y contraseña.', 'error');
         return;
       }
 
-      alertBox.textContent = 'Iniciando sesión...';
-      alertBox.className = 'alert-box success';
-      alertBox.style.display = 'block';
+      isSubmitting = true;
+      if (submitBtn) submitBtn.disabled = true;
+      mostrarAlerta('Iniciando sesión...', 'success');
 
       const formData = new FormData();
-      formData.append('username', user);
+      formData.append('correo', user);
+      formData.append('username', user); // Compatibilidad adicional con backend
       formData.append('password', pass);
 
       try {
@@ -47,36 +65,61 @@ document.addEventListener('DOMContentLoaded', () => {
           method: 'POST',
           body: formData
         });
+
+        // Si es error de servidor (500, 404, etc.) distinto a credenciales inválidas (401)
+        if (!response.ok && response.status !== 401) {
+          throw new Error(`Error HTTP ${response.status} en el servidor.`);
+        }
+
         const result = await response.json();
 
         if (result.status === 'success') {
-          alertBox.textContent = result.message;
-          alertBox.className = 'alert-box success';
+          mostrarAlerta(result.message || '¡Inicio de sesión exitoso!', 'success');
+
+          // Ruteador dinámico según el rol devuelto por el backend
+          let paginaDestino = 'index.html'; // Default para RECEPCIONISTA
+          const rol = (result.rol || '').toUpperCase();
+
+          if (rol === 'ADMIN') {
+            paginaDestino = 'admin.html';
+          } else if (rol === 'INSTRUCTOR' || rol === 'DOCENTE') {
+            paginaDestino = 'instructor.html';
+          } else if (rol === 'RECEPCIONISTA') {
+            paginaDestino = 'index.html';
+          } else if (result.redirect) {
+            paginaDestino = result.redirect;
+          }
+
           setTimeout(() => {
-            window.location.href = result.redirect;
-          }, 1000);
+            window.location.href = paginaDestino;
+          }, 800);
         } else {
-          alertBox.textContent = result.message || 'Usuario o contraseña incorrectos.';
-          alertBox.className = 'alert-box error';
+          mostrarAlerta(result.message || 'Usuario o contraseña incorrectos.', 'error');
+          isSubmitting = false;
+          if (submitBtn) submitBtn.disabled = false;
         }
       } catch (error) {
-        alertBox.textContent = 'Error al conectar con el servidor backend.';
-        alertBox.className = 'alert-box error';
+        console.error('Error en login:', error);
+        mostrarAlerta('Error al conectar con el servidor backend.', 'error');
+        isSubmitting = false;
+        if (submitBtn) submitBtn.disabled = false;
       }
     });
   }
 
-  // --- ANIMACIÓN TI BACKGROUND CANVAS NGA ADDAAN TI IMAGEN ---
+  // --- ANIMACIÓN DE FONDO NEÓN (BACKGROUND CANVAS) ---
   const canvas = document.getElementById('bgCanvas');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
   let width, height;
   let time = 0;
+  let animationFrameId = null;
 
-  // Cargar ti fondo.jpeg manipud ti folder nga img/
   const coupleImg = new Image();
-  coupleImg.src = 'img/fondo.png'; 
+  coupleImg.src = 'img/fondo.png';
 
   function resize() {
     width = canvas.width = window.innerWidth;
@@ -85,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', resize);
   resize();
 
-  // Partículas ti background
   const particles = Array.from({ length: 45 }, () => ({
     x: Math.random() * width,
     y: Math.random() * height,
@@ -116,7 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.translate(centerX + sway, centerY + bounce);
     ctx.scale(finalScale, finalScale);
 
-    // Anillos neón ti floor
     ctx.strokeStyle = c.glow;
     ctx.lineWidth = 2;
     ctx.globalAlpha = 0.3;
@@ -127,15 +168,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     ctx.globalAlpha = 1.0;
 
-    // Effect Neon Glow
     ctx.shadowBlur = c.shadowBlur;
     ctx.shadowColor = c.glow;
 
     if (coupleImg.complete && coupleImg.naturalWidth !== 0) {
-      // No nakaukit ken nakaload ti img/fondo.jpeg
       ctx.drawImage(coupleImg, -coupleImg.width / 2, -coupleImg.height / 2);
     } else {
-      // Fallback silhouette no adda delay ti panag-load ti fondo.jpeg
       ctx.fillStyle = c.glow;
       ctx.beginPath();
       ctx.arc(0, 0, 40, 0, Math.PI * 2);
@@ -151,8 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     time += 1;
 
-    // Drawing ti partículas
-    particles.forEach(p => {
+    particles.forEach((p) => {
       p.x += p.speedX;
       p.y += p.speedY;
       if (p.x < 0) p.x = width;
@@ -166,22 +203,29 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.fill();
     });
 
-    // Drawing ti silhouettes / imagen
-    couples.forEach(c => {
+    couples.forEach((c) => {
       const coupleAngle = time * c.speed;
       drawCouple(c, coupleAngle);
     });
 
-    requestAnimationFrame(animate);
+    animationFrameId = requestAnimationFrame(animate);
   }
 
-  // Punganayen ti animación
+  // Pausar animación cuando la pestaña no está activa
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    } else if (!document.hidden && !animationFrameId) {
+      animate();
+    }
+  });
+
   if (coupleImg.complete) {
     animate();
   } else {
     coupleImg.onload = animate;
     coupleImg.onerror = () => {
-      // Ag-animate uray no adda error ti path tapno saan nga ag-freeze ti canvas
       animate();
     };
   }
